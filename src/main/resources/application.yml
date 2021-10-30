@@ -1,0 +1,18 @@
+---
+spring:
+  application:
+    name: spring-maven-template
+  messages:
+    encoding: UTF-8
+  jackson:
+    time-zone: "Asia/Tokyo"
+
+logging:
+  level:
+    web: debug
+
+---
+# -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定
+spring:
+  profiles:
+    default: local

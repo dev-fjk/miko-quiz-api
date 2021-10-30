@@ -1,0 +1,11 @@
+---
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: dbc:h2:mem:;
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true  
+    
