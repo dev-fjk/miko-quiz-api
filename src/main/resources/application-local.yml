@@ -5,7 +5,17 @@ spring:
     url: jdbc:h2:mem:default;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
     username: sa
     password:
+  sql:
+    init:
+      mode: embedded
+      schema-locations: classpath:h2/quiz.sql
+      data-locations: classpath:h2/quiz-data.sql
   h2:
     console:
-      enabled: true  
-    
+      enabled: true
+
+logging:
+  level:
+    root: info
+    web: debug
+    org.seasar.doma.jdbc.UtilLoggingJdbcLogger: debug

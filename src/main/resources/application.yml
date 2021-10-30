@@ -9,8 +9,9 @@ spring:
 
 logging:
   level:
-    web: debug
-    org.seasar.doma.jdbc.UtilLoggingJdbcLogger: debug
+    root: info
+    web: info
+    org.seasar.doma.jdbc.UtilLoggingJdbcLogger: info
 
 ---
 # -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定
