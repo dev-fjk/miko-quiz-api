@@ -1,6 +1,5 @@
 package com.elite.miko.quiz;
 
-import java.util.HashMap;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
