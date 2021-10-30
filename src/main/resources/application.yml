@@ -1,7 +1,7 @@
 ---
 spring:
   application:
-    name: spring-maven-template
+    name: miko-quiz-api
   messages:
     encoding: UTF-8
   jackson:

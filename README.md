@@ -1,2 +1,2 @@
-# spring-maven-template
-Maven使用時のテンプレートリポジトリ
+# miko-quiz-api
+みこちのクイズアプリ用Rest Api

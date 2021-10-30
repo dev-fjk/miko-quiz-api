@@ -1,4 +1,4 @@
-package com.maven.example.demo;
+package com.elite.miko.quiz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

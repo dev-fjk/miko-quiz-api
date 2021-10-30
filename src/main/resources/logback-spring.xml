@@ -3,7 +3,7 @@
     <!-- 標準出力用設定(コンソール) -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{yyyy:MM:dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -16,11 +16,11 @@
         <!-- ログファイル出力場所 log/application.yyyyMMdd.log -->
         <!-- 日付単位で全ログを保持したい場合はappendをtrueにすること デフォルトとしては毎回ログをクリーンするように作成 -->
         <file>log/application_${timestamp}.log</file>
-        <append>false</append>
+        <append>true</append>
         <encoder>
             <!-- ログファイルの中のメッセージ出力設定 -->
             <charset>UTF-8</charset>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{yyyy:MM:dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -29,5 +29,4 @@
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
-
 </configuration>

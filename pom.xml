@@ -11,15 +11,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <!-- TODO 作成したリポジトリ名などをベースに修正すること -->
-    <groupId>com.maven.example.demo</groupId>
-    <artifactId>spring-maven-template</artifactId>
+    <groupId>com.elite.miko.quiz</groupId>
+    <artifactId>miko-quiz-api</artifactId>
     <version>1.0.0</version>
-    <name>spring-maven-template</name>
-    <description>template project when use maven</description>
+    <name>miko-quiz-api</name>
+    <description>sakura miko quiz rest api</description>
 
     <properties>
-        <!-- TODO 後々 java 17までバージョン上げる (次版のLTSバージョンのため。) -->
         <java.version>11</java.version>
         <spock.version>2.0-groovy-3.0</spock.version>
         <test.include.groovy>**/*.groovy</test.include.groovy>
@@ -34,10 +32,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,19 +75,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- MyBatis JPAやJDBC使用時は削除-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.0</version>
-        </dependency>
-        <dependency>
-            <!-- sqlを別ファイルで置けるように設定 -->
-            <groupId>org.mybatis.scripting</groupId>
-            <artifactId>mybatis-thymeleaf</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-
+        <!-- libraries -->
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -125,21 +107,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.batch</groupId>
-            <artifactId>spring-batch-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- MyBatis for test -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter-test</artifactId>
-            <version>2.2.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -224,16 +193,9 @@
                     </includes>
                 </configuration>
                 <dependencies>
-                    <!-- Junit5向けの設定　Spock 2.0 以降は Junit5の環境ベースで動作するため設定。 -->
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
                         <artifactId>surefire-junit-platform</artifactId>
-                        <version>3.0.0-M5</version>
-                    </dependency>
-                    <!-- junit4向け 並列動作設定 spock2.0と junit4を併用しない場合は不要 -->
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit47</artifactId>
                         <version>3.0.0-M5</version>
                     </dependency>
                 </dependencies>
