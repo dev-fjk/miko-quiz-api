@@ -35,3 +35,4 @@ ER図だけ作成済み
 ## 参考
 - [Doma リファレンス](http://doma.seasar.org/reference/index.html)
 - [Doma Framework](https://github.com/domaframework/doma-spring-boot)
+- [ControllerからSwaggerを自動生成](https://qiita.com/rhirabay/items/f7527c91b5defc424b9c)

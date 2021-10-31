@@ -13,7 +13,10 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-// http://localhost:8080/swagger-ui/index.html#/
+/**
+ * Swaggerの定義
+ * http://localhost:8080/swagger-ui/index.html#/
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

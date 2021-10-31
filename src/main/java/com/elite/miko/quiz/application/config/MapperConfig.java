@@ -10,9 +10,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Mapper定義クラス
+ */
 @Configuration
 public class MapperConfig {
 
+    /**
+     * 自作ObjectMapperの定義
+     *
+     * @return : ObjectMapper
+     */
     @Bean
     public ObjectMapper objectMapper() {
 
@@ -29,6 +37,11 @@ public class MapperConfig {
         return objectMapper;
     }
 
+    /**
+     * ModelMapper
+     *
+     * @return : ModelMapper
+     */
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

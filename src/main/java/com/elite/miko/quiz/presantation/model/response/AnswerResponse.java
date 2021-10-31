@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.presantation.model;
+package com.elite.miko.quiz.presantation.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
