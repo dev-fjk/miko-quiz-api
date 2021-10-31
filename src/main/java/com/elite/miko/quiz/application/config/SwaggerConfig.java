@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.config;
+package com.elite.miko.quiz.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

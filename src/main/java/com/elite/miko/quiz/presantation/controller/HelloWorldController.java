@@ -1,4 +1,4 @@
-package com.elite.miko.quiz;
+package com.elite.miko.quiz.presantation.controller;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

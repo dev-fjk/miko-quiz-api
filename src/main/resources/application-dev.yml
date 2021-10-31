@@ -1,0 +1,15 @@
+---
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+logging:
+  level:
+    root: info
+    web: debug
+    org.seasar.doma.jdbc.UtilLoggingJdbcLogger: debug
+    org.springframework.jdbc.datasource.init: debug
+
