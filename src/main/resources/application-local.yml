@@ -7,7 +7,7 @@ spring:
     password:
   sql:
     init:
-      mode: never
+      mode: embedded
       # Spring起動の度に投入するSQLファイル 外部キーの関係で以下の順序で投入する
       schema-locations:
         - classpath:h2/ddl/quiz_status.sql
