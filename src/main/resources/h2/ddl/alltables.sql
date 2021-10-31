@@ -37,7 +37,6 @@ comment on column answers.created_at is 'レコード作成日';
 comment on column answers.update_at is 'レコード更新日';
 
 -- quiz
--- answers
 drop table if exists quiz;
 create table quiz
 (
