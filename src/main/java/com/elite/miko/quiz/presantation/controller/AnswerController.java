@@ -3,6 +3,7 @@ package com.elite.miko.quiz.presantation.controller;
 import com.elite.miko.quiz.domain.model.Answer;
 import com.elite.miko.quiz.domain.service.AnswerService;
 import com.elite.miko.quiz.presantation.model.AnswerResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,19 +24,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnswerController {
 
     private final AnswerService answerService;
+    private final ObjectMapper objectMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/answer/")
-    public ResponseEntity<?> get() {
+    public ResponseEntity<?> get() throws Exception {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         List<AnswerResponse> responses = new ArrayList<>();
-
         List<Answer> answerList = answerService.fetchAll();
-        ModelMapper mapper = new ModelMapper();
+        log.info("jsonStr : {}", objectMapper.writeValueAsString(answerList));
         for (Answer answer : answerList) {
-            responses.add(mapper.map(answer, AnswerResponse.class));
+            responses.add(this.modelMapper.map(answer, AnswerResponse.class));
         }
         return new ResponseEntity<>(responses, httpHeaders, HttpStatus.OK);
     }
