@@ -17,12 +17,12 @@ public class QuizRequestForm {
 
     @NotBlank(message = "必須項目です")
     @Size(max = 200)
-    @ApiModelProperty(value = "問題文", required = true,position = 1)
+    @ApiModelProperty(value = "問題文", required = true)
     private String question;
 
     @NotBlank(message = "必須項目です")
     @Size(max = 200)
-    @ApiModelProperty(value = "解説文", required = true,position = 2)
+    @ApiModelProperty(value = "解説文", required = true)
     private String commentary;
 
     @NotBlank(message = "必須項目です")
