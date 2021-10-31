@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presantation.controller;
 
+import com.elite.miko.quiz.presantation.common.ControllerUtils;
 import com.elite.miko.quiz.presantation.model.form.QuizRequestForm;
 import com.elite.miko.quiz.presantation.model.response.ErrorDetail;
 import com.elite.miko.quiz.presantation.model.response.ErrorSet;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class QuizCustomerController {
 
-    private final ControllerBase commonBase;
+    private final ControllerUtils commonBase;
     private final Validator validator;
 
     /**
@@ -59,7 +61,8 @@ public class QuizCustomerController {
         if (!this.checkQuizCount(count)) {
             // バリデーションエラーの成形
             final List<ErrorDetail> detailList = new ArrayList<>();
-            detailList.add(new ErrorDetail("countは10から100で指定してください", HttpStatus.BAD_REQUEST.toString()));
+            detailList.add(new ErrorDetail("countは10から100までの10件単位の件数を指定してください",
+                    HttpStatus.BAD_REQUEST.toString()));
 
             final ErrorSet error = new ErrorSet(HttpStatus.BAD_REQUEST.value(),
                     "Validation Error", detailList);
@@ -95,17 +98,23 @@ public class QuizCustomerController {
         return new ResponseEntity<>(1, commonBase.createHeader(), HttpStatus.CREATED);
     }
 
+    /**
+     * クイズ取得指定件数の バリデーションチェックを実施
+     *
+     * @param count : 取得指定件数
+     * @return チェック結果
+     */
     private boolean checkQuizCount(Integer count) {
 
-        boolean result = true;
+        Integer[] checkNumbers = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 
+        boolean result = true;
         if (Objects.isNull(count) || count.equals(0)) {
             log.error("count is Not setting : {}", count);
             result = false;
         }
-
-        if (count < 10 || 100 < count) {
-            log.error("count is illegal count : {}", count);
+        if (!Arrays.asList(checkNumbers).contains(count)) {
+            log.error("count is not in units of 10");
             result = false;
         }
         return result;

@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.presantation.controller;
+package com.elite.miko.quiz.presantation.common;
 
 import com.elite.miko.quiz.presantation.model.response.ErrorDetail;
 import com.elite.miko.quiz.presantation.model.response.ErrorSet;
@@ -18,7 +18,7 @@ import org.springframework.http.MediaType;
  */
 @Slf4j
 @Configuration
-public class ControllerBase {
+public class ControllerUtils {
 
     /**
      * Json形式のHTTPヘッダーを作成する
