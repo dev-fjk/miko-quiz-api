@@ -1,13 +1,14 @@
 drop table if exists quiz;
 create table quiz
 (
-    id         integer generated always as identity primary key,
+    id         integer generated always as identity,
     question   varchar(200)                           not null,
     commentary varchar(200)                           not null,
     answers_id integer                                not null,
     status_id  integer                                not null,
     created_at timestamp(3) default current_timestamp not null,
     update_at  timestamp(3) default current_timestamp not null,
+    primary key (id, answers_id),
     foreign key (answers_id) references answers (id),
     foreign key (status_id) references quiz_status (id)
 );
