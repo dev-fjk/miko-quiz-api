@@ -10,8 +10,9 @@ spring:
 logging:
   level:
     root: info
-    web: info
-    org.seasar.doma.jdbc.UtilLoggingJdbcLogger: info
+
+doma:
+  dialect: postgres
 
 ---
 # -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定
