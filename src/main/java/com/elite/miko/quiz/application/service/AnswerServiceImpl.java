@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.application.service;
 
-import com.elite.miko.quiz.domain.model.Answer;
+import com.elite.miko.quiz.domain.model.entity.Answer;
 import com.elite.miko.quiz.domain.repository.AnswerRepository;
 import com.elite.miko.quiz.domain.service.AnswerService;
 import java.util.List;

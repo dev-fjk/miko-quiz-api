@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.presantation.controller;
 
-import com.elite.miko.quiz.domain.model.Answer;
+import com.elite.miko.quiz.domain.model.entity.Answer;
 import com.elite.miko.quiz.domain.service.AnswerService;
 import com.elite.miko.quiz.presantation.model.response.AnswerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

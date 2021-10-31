@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.infrastructure.dao;
 
-import com.elite.miko.quiz.domain.model.Answer;
+import com.elite.miko.quiz.domain.model.entity.Answer;
 import java.util.List;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;

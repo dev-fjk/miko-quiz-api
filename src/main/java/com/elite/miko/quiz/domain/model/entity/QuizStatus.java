@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.domain.model;
+package com.elite.miko.quiz.domain.model.entity;
 
 import java.util.Date;
 import lombok.Data;
@@ -10,23 +10,15 @@ import org.seasar.doma.Table;
 import org.seasar.doma.jdbc.entity.NamingType;
 
 @Data
-@Table(name = "answer")
+@Table(name = "quiz_status")
 @Entity(naming = NamingType.SNAKE_LOWER_CASE)
-public class Answer {
+public class QuizStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String answer1;
-
-    private String answer2;
-
-    private String answer3;
-
-    private String answer4;
-
-    private int correctNumber;
+    private String status;
 
     private Date createdAt;
 

@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.infrastructure.repository;
 
-import com.elite.miko.quiz.domain.model.Answer;
+import com.elite.miko.quiz.domain.model.entity.Answer;
 import com.elite.miko.quiz.domain.repository.AnswerRepository;
 import com.elite.miko.quiz.infrastructure.dao.AnswerDao;
 import java.util.List;
