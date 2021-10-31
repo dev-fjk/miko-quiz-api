@@ -34,9 +34,9 @@ public class AnswerController {
 
         List<Answer> answerList = answerService.fetchAll();
         ModelMapper mapper = new ModelMapper();
-        for (Answer answer : answerList){
-            responses.add(mapper.map(answer,AnswerResponse.class));
+        for (Answer answer : answerList) {
+            responses.add(mapper.map(answer, AnswerResponse.class));
         }
-        return new ResponseEntity<>(responses,httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(responses, httpHeaders, HttpStatus.OK);
     }
 }
