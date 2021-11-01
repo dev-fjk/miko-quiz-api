@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.infrastructure.repository;
 
+import com.elite.miko.quiz.domain.model.dto.QuizStatusType;
 import com.elite.miko.quiz.domain.model.entity.Quiz;
 import com.elite.miko.quiz.domain.repository.QuizRepository;
 import com.elite.miko.quiz.infrastructure.dao.QuizDao;
@@ -24,8 +25,9 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     @Override
-    public List<Integer> fetchAllApplyQuizId() {
-        return quizDao.fetchAllApplyQuizId();
+    public List<Integer> fetchAllQuizIdByStatus(QuizStatusType statusType) {
+        log.info("status Type : {}", statusType.getValue());
+        return quizDao.fetchAllQuizIdByStatus(statusType.getValue());
     }
 }
 

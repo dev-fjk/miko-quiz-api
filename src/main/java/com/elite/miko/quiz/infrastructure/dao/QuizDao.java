@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.infrastructure.dao;
 
+import com.elite.miko.quiz.domain.model.dto.QuizStatusType;
 import com.elite.miko.quiz.domain.model.entity.Quiz;
 import java.util.List;
 import org.seasar.doma.Dao;
@@ -14,5 +15,5 @@ public interface QuizDao {
     List<Quiz> fetchAll();
 
     @Select
-    List<Integer> fetchAllApplyQuizId();
+    List<Integer> fetchAllQuizIdByStatus(String statusName);
 }

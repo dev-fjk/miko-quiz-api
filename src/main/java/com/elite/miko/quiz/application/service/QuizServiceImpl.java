@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.application.service;
 
+import com.elite.miko.quiz.domain.model.dto.QuizStatusType;
 import com.elite.miko.quiz.domain.model.dto.ResultFetchQuizInfo;
 import com.elite.miko.quiz.domain.model.entity.Quiz;
 import com.elite.miko.quiz.domain.repository.QuizRepository;
@@ -27,7 +28,7 @@ public class QuizServiceImpl implements QuizService {
     public List<ResultFetchQuizInfo> fetchQuiz(int count) {
 
         // クイズIDの一覧を取得
-        List<Integer> applyQuizIds = quizRepository.fetchAllApplyQuizId();
+        List<Integer> applyQuizIds = quizRepository.fetchAllQuizIdByStatus(QuizStatusType.APPLY);
         log.info("クイズID一覧 : {}", applyQuizIds);
         if (CollectionUtils.isEmpty(applyQuizIds)) {
             log.error("クイズが見つかりません。");
