@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.infrastructure.dao;
 
-import com.elite.miko.quiz.domain.model.entity.Answer;
+import com.elite.miko.quiz.domain.model.entity.Quiz;
 import java.util.List;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
@@ -8,8 +8,8 @@ import org.seasar.doma.boot.ConfigAutowireable;
 
 @Dao
 @ConfigAutowireable
-public interface AnswerDao {
+public interface QuizDao {
 
     @Select
-    List<Answer> fetchAll();
+    List<Quiz> fetchAll();
 }

@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presantation.controller;
 
+import com.elite.miko.quiz.domain.service.QuizService;
 import com.elite.miko.quiz.presantation.common.ControllerUtils;
 import com.elite.miko.quiz.presantation.model.form.QuizRequestForm;
 import com.elite.miko.quiz.presantation.model.response.ErrorDetail;
@@ -22,10 +23,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,6 +42,7 @@ public class QuizCustomerController {
 
     private final ControllerUtils commonBase;
     private final Validator validator;
+    private final QuizService quizService;
 
     /**
      * クイズの検索を行う
@@ -49,14 +51,15 @@ public class QuizCustomerController {
      * @return 更新件数を返却
      */
     @ApiOperation("クイズ取得リクエスト")
-    @GetMapping(value = "/quiz/{count}")
+    @GetMapping(value = "/quiz/")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "クイズ取得成功", response = QuizResponse.class),
             @ApiResponse(code = 204, message = "クイズデータ無し", response = ErrorSet.class),
             @ApiResponse(code = 400, message = "入力値エラー", response = ErrorSet.class),
             @ApiResponse(code = 500, message = "システムエラー", response = ErrorSet.class)
     })
-    public ResponseEntity<?> fetchQuizData(@PathVariable Integer count) {
+    public ResponseEntity<?> fetchQuizData(
+            @RequestParam(name = "count", required = false, defaultValue = "10") Integer count) {
 
         if (!this.checkQuizCount(count)) {
             // バリデーションエラーの成形
@@ -68,9 +71,8 @@ public class QuizCustomerController {
                     "Validation Error", detailList);
             return new ResponseEntity<>(error, commonBase.createHeader(), HttpStatus.BAD_REQUEST);
         }
-
-        // TODO DBアクセスまでの一連処理の盛り込み
-        return new ResponseEntity<>(new QuizResponse(), commonBase.createHeader(), HttpStatus.CREATED);
+        // TODO 必要なデータだけ取得するように修正する
+        return new ResponseEntity<>(quizService.fetchAll(), commonBase.createHeader(), HttpStatus.CREATED);
     }
 
     /**
@@ -105,6 +107,7 @@ public class QuizCustomerController {
      * @return チェック結果
      */
     private boolean checkQuizCount(Integer count) {
+        log.info("quiz count : {}", count);
 
         Integer[] checkNumbers = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 
