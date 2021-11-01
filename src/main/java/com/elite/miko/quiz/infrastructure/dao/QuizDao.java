@@ -12,4 +12,7 @@ public interface QuizDao {
 
     @Select
     List<Quiz> fetchAll();
+
+    @Select
+    List<Integer> fetchAllApplyQuizId();
 }

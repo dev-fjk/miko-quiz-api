@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presantation.controller;
 
+import com.elite.miko.quiz.domain.model.dto.ResultFetchQuizInfo;
 import com.elite.miko.quiz.domain.service.QuizService;
 import com.elite.miko.quiz.presantation.common.ControllerUtils;
 import com.elite.miko.quiz.presantation.model.form.QuizRequestForm;
@@ -11,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -20,6 +20,7 @@ import javax.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,15 +65,24 @@ public class QuizCustomerController {
         if (!this.checkQuizCount(count)) {
             // バリデーションエラーの成形
             final List<ErrorDetail> detailList = new ArrayList<>();
-            detailList.add(new ErrorDetail("countは10から100までの10件単位の件数を指定してください",
+            detailList.add(new ErrorDetail("countは1から100までの件数を指定してください",
                     HttpStatus.BAD_REQUEST.toString()));
 
             final ErrorSet error = new ErrorSet(HttpStatus.BAD_REQUEST.value(),
                     "Validation Error", detailList);
             return new ResponseEntity<>(error, commonBase.createHeader(), HttpStatus.BAD_REQUEST);
         }
-        // TODO 必要なデータだけ取得するように修正する
-        return new ResponseEntity<>(quizService.fetchAll(), commonBase.createHeader(), HttpStatus.CREATED);
+
+        // クイズの取得
+        List<ResultFetchQuizInfo> quizList = quizService.fetchQuiz(count);
+        if (CollectionUtils.isEmpty(quizList)) {
+            return new ResponseEntity<>(HttpEntity.EMPTY, commonBase.createHeader(), HttpStatus.NO_CONTENT);
+        }
+
+        QuizResponse response = new QuizResponse();
+        response.setQuestionCount(quizList.size());
+        response.setQuizList(quizList);
+        return new ResponseEntity<>(response, commonBase.createHeader(), HttpStatus.OK);
     }
 
     /**
@@ -109,15 +119,13 @@ public class QuizCustomerController {
     private boolean checkQuizCount(Integer count) {
         log.info("quiz count : {}", count);
 
-        Integer[] checkNumbers = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-
         boolean result = true;
         if (Objects.isNull(count) || count.equals(0)) {
             log.error("count is Not setting : {}", count);
             result = false;
         }
-        if (!Arrays.asList(checkNumbers).contains(count)) {
-            log.error("count is not in units of 10");
+        if (count <= 0 || 100 < count) {
+            log.error("カウントの設定数が許容範囲外です。 : {}", count);
             result = false;
         }
         return result;

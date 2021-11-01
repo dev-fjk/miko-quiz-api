@@ -22,6 +22,11 @@ public class QuizRepositoryImpl implements QuizRepository {
         log.info("allQuiz : {}", allQuiz);
         return allQuiz;
     }
+
+    @Override
+    public List<Integer> fetchAllApplyQuizId() {
+        return quizDao.fetchAllApplyQuizId();
+    }
 }
 
 

@@ -7,4 +7,6 @@ public interface QuizRepository {
 
     List<Quiz> fetchAll();
 
+    List<Integer> fetchAllApplyQuizId();
+
 }
