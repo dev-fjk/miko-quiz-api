@@ -105,9 +105,7 @@ public class QuizCustomerController {
             ErrorSet errorSet = commonBase.createBadRequestErrorSet(violations);
             return new ResponseEntity<>(errorSet, commonBase.createHeader(), HttpStatus.BAD_REQUEST);
         }
-
-        // TODO DBアクセスまでの一連処理の盛り込み
-        return new ResponseEntity<>(1, commonBase.createHeader(), HttpStatus.CREATED);
+        return new ResponseEntity<>(quizService.addQuizRequest(request), commonBase.createHeader(), HttpStatus.CREATED);
     }
 
     /**

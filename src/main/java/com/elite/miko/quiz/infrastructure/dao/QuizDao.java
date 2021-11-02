@@ -4,6 +4,7 @@ import com.elite.miko.quiz.domain.model.entity.Quiz;
 import com.elite.miko.quiz.domain.model.entity.QuizJoinAnswer;
 import java.util.List;
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
 
@@ -16,4 +17,7 @@ public interface QuizDao {
 
     @Select
     List<QuizJoinAnswer> fetchQuizJoinAnswers(List<Integer> idList, int count);
+
+    @Insert(queryTimeout = 10, sqlFile = true)
+    int createQuizRequest(Quiz entity);
 }

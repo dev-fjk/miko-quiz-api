@@ -7,7 +7,6 @@ spring:
     password: postgres
 
 logging:
-
   level:
     root: info
     web: debug

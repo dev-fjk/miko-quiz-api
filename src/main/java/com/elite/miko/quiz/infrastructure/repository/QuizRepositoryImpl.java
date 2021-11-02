@@ -8,6 +8,7 @@ import com.elite.miko.quiz.infrastructure.dao.QuizDao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Slf4j
@@ -28,6 +29,11 @@ public class QuizRepositoryImpl implements QuizRepository {
         log.info("クイズ一覧を取得します。");
         log.info("idList : {},count : {}", idList, count);
         return quizDao.fetchQuizJoinAnswers(idList, count);
+    }
+
+    @Override
+    public int createQuizRequest(@NonNull Quiz quiz) {
+        return quizDao.createQuizRequest(quiz);
     }
 }
 
