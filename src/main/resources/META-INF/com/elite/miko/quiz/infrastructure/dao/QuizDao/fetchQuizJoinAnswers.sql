@@ -14,4 +14,7 @@ from
         join answer a on a.id = q.answer_id
 where
     q.id IN /* idList */(1, 2)
+order by
+    random()
+limit /* count */10
 

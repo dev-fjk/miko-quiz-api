@@ -2,6 +2,7 @@ package com.elite.miko.quiz.infrastructure.repository;
 
 import com.elite.miko.quiz.domain.model.dto.QuizStatusType;
 import com.elite.miko.quiz.domain.model.entity.Quiz;
+import com.elite.miko.quiz.domain.model.entity.QuizJoinAnswer;
 import com.elite.miko.quiz.domain.repository.QuizRepository;
 import com.elite.miko.quiz.infrastructure.dao.QuizDao;
 import java.util.List;
@@ -17,17 +18,16 @@ public class QuizRepositoryImpl implements QuizRepository {
     private final QuizDao quizDao;
 
     @Override
-    public List<Quiz> fetchAll() {
-        log.info("fetchAll!");
-        List<Quiz> allQuiz = quizDao.fetchAll();
-        log.info("allQuiz : {}", allQuiz);
-        return allQuiz;
-    }
-
-    @Override
     public List<Integer> fetchAllQuizIdByStatus(QuizStatusType statusType) {
         log.info("status Type : {}", statusType.getValue());
         return quizDao.fetchAllQuizIdByStatus(statusType.getValue());
+    }
+
+    @Override
+    public List<QuizJoinAnswer> fetchQuizData(List<Integer> idList, int count) {
+        log.info("クイズ一覧を取得します。");
+        log.info("idList : {},count : {}", idList, count);
+        return quizDao.fetchQuizJoinAnswers(idList, count);
     }
 }
 

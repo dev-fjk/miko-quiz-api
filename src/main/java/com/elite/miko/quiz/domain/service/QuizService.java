@@ -6,7 +6,5 @@ import java.util.List;
 
 public interface QuizService {
 
-    List<Quiz> fetchAll();
-
     List<ResultFetchQuizInfo> fetchQuiz(int count);
 }
