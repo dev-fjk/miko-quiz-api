@@ -18,21 +18,27 @@ import org.seasar.doma.Domain;
 )
 public enum QuizStatus {
 
-    ENABLED("enabled"),
-    REQUEST("request"),
-    DISABLED("disabled"),
-    NG("ng"),
-    INVALID("invalid");
+    ENABLED("enabled", "有効"),
+    REQUEST("request", "追加リクエスト中"),
+    DISABLED("disabled", "無効"),
+    NG("ng", "チェックNG"),
+    INVALID("invalid", "異常値");
 
     private final String value;
+    private final String displayName;
 
-    QuizStatus(String value) {
+    QuizStatus(String value, String displayName) {
         this.value = value;
+        this.displayName = displayName;
     }
 
     @JsonValue
     public String getValue() {
         return value;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     /**
