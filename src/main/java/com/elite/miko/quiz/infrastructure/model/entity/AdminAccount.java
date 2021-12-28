@@ -12,7 +12,7 @@ import org.seasar.doma.Table;
 @Data
 @Entity
 @Table(name = "admin_account")
-public class Admin_Account {
+public class AdminAccount {
 
     private String accountId;
 

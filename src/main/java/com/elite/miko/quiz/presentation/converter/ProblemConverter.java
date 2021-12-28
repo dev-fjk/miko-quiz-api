@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.converter;
 
+import com.elite.miko.quiz.application.exception.LoginFailureException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
@@ -45,6 +46,21 @@ public class ProblemConverter {
                 .title("リクエストされたパラメータは正しくありません")
                 .status(HttpStatus.BAD_REQUEST.value())
                 .detail(detail(exception.getConstraintViolations()))
+                .build();
+    }
+
+    /**
+     * ログイン失敗時のレスポンスを作成
+     * 401エラーを返す
+     *
+     * @param exception {@link LoginFailureException}
+     * @return {@link ProblemResponse}
+     */
+    public ProblemResponse convert(LoginFailureException exception) {
+        return ProblemResponse.builder()
+                .title("認証に失敗しました")
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .detail(exception.getMessage())
                 .build();
     }
 

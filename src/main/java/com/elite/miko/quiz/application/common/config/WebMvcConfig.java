@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.common.config;
+package com.elite.miko.quiz.application.common.config;
 
 import com.elite.miko.quiz.presentation.controller.QuizInterceptor;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
-package com.elite.miko.quiz.common.config;
+package com.elite.miko.quiz.application.common.config;
 
-import com.elite.miko.quiz.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.converter.ModelConverters;
@@ -90,7 +90,7 @@ public class OpenApiConfig {
         var loginFailureContent = problemContent(objectMapper, ProblemResponse.builder()
                 .title("認証に失敗しました")
                 .status(HttpStatus.UNAUTHORIZED.value())
-                .detail("IDまたはパスワードに誤りがあります")
+                .detail("ログインに失敗しました")
                 .build()
         );
         var forbiddenContent = problemContent(objectMapper, ProblemResponse.builder()

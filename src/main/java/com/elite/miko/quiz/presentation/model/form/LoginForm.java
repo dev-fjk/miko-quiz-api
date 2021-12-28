@@ -16,10 +16,10 @@ public class LoginForm {
 
     @NotBlank(message = "必須パラメータです")
     @Size(max = 12)
-    @Schema(description = "アカウントID", required = true)
+    @Schema(description = "アカウントID", example = "root", required = true)
     private String accountId;
 
     @NotBlank(message = "必須パラメータです")
-    @Schema(description = "パスワード", required = true)
+    @Schema(description = "パスワード", example = "password", required = true)
     private String password;
 }
