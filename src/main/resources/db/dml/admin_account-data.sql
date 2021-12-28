@@ -2,4 +2,4 @@
 insert into
     admin_account (account_id, password)
 values
-    ('root', 'f6ca968fe4b340bdbaef14d0803986ad2ae611fc651c5e00094db5a9f08251f6');
+    ('root', '7a37b85c8918eac19a9089c0fa5a2ab4dce3f90528dcdeec108b23ddf3607b99');

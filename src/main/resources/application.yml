@@ -29,7 +29,8 @@ management:
 
 # パスワードハッシュ化の際に使用する文字列
 extension:
-  salt: ${salt}
+  hash:
+    salt: ${salt}
 
 ---
 # -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定

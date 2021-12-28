@@ -34,5 +34,5 @@ doma:
   dialect: h2
 
 extension:
-  # ID : root / pass : passwordでログイン可能
-  salt: salt
+  hash:
+    salt: salt
