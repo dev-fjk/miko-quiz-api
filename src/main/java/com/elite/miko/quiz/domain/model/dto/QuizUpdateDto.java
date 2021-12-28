@@ -1,6 +1,5 @@
 package com.elite.miko.quiz.domain.model.dto;
 
-import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.base.AnswerBaseDto;
 import com.elite.miko.quiz.domain.model.dto.base.QuizDtoBase;
 import lombok.Data;
@@ -14,12 +13,11 @@ public class QuizUpdateDto extends QuizDtoBase {
 
     private Long quizId;
 
-    private QuizStatus status;
+    private AnswerUpdateDto answer;
 
     @Data
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = false)
     public static class AnswerUpdateDto extends AnswerBaseDto {
     }
-
 }
