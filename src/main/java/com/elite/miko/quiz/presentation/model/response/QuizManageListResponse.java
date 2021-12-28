@@ -44,7 +44,7 @@ public class QuizManageListResponse {
         @Schema(description = "解説文", example = "さくらみこの挨拶はにゃっはろー", required = true)
         private String commentary;
 
-        @Schema(description = "クイズの状態", example = "enabled", required = true)
+        @Schema(description = "クイズの状態", example = "有効", required = true)
         private String quizStatus;
 
         @Schema(description = "クイズの管理用回答情報", required = true)

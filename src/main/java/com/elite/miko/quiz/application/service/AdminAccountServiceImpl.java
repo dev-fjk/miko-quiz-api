@@ -25,7 +25,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
     public String login(String accountId, String password) {
 
         // パスワードをsha256でハッシュ化する
-        final String hashedPassword = hashUtil.createHashPassword(password);
+        final String hashedPassword = hashUtil.createSha256Password(password);
         final boolean isLogin = adminAccountRepository.login(accountId, hashedPassword);
         if (!isLogin) {
             throw new LoginFailureException("ログインに失敗しました");
