@@ -19,7 +19,13 @@ public interface QuizRepository {
 
     Object fetchRequestQuiz(int start, int count);
 
-    void insertQuiz(QuizAddDto quizAddDto);
+    /**
+     * クイズの追加を行う
+     *
+     * @param quizAddDto : クイズ追加Dto
+     * @return 更新成功の場合trueを返却
+     */
+    Quiz insertQuiz(QuizAddDto quizAddDto);
 
     void updateQuiz(QuizUpdateDto quizUpdateDto);
 

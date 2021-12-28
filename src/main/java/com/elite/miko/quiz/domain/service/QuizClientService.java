@@ -13,5 +13,10 @@ public interface QuizClientService {
      */
     QuizQuestionResult fetchQuiz(int count);
 
+    /**
+     * クイズの追加リクエストを行う
+     *
+     * @param quizAddDto : クイズ追加DTO
+     */
     void quizRequest(QuizAddDto quizAddDto);
 }

@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.converter;
 
+import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import java.nio.file.AccessDeniedException;
@@ -71,6 +72,20 @@ public class ProblemConverter {
         return ProblemResponse.builder()
                 .title("リクエストされたリソースは見つかりませんでした")
                 .status(HttpStatus.NOT_FOUND.value())
+                .detail(exception.getMessage())
+                .build();
+    }
+
+    /**
+     * データ更新時のエラーを返す
+     *
+     * @param exception {@link RepositoryControlException}
+     * @return {@link ProblemResponse}
+     */
+    public ProblemResponse convert(RepositoryControlException exception) {
+        return ProblemResponse.builder()
+                .title("データの更新で失敗しました")
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .detail(exception.getMessage())
                 .build();
     }

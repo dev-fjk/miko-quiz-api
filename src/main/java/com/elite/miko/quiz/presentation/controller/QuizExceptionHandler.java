@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.controller;
 
+import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.converter.ProblemConverter;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
@@ -67,6 +68,17 @@ public class QuizExceptionHandler {
     }
 
     /**
+     * インフラ層でのデータ更新時の例外
+     *
+     * @param exception {@link RepositoryControlException}
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler(RepositoryControlException.class)
+    public ResponseEntity<ProblemResponse> handleRuntimeException(RepositoryControlException exception) {
+        return this.errorResponses(HttpStatus.INTERNAL_SERVER_ERROR, problemConverter.convert(exception));
+    }
+
+    /**
      * その他エラー
      *
      * @param exception {@link RuntimeException}
@@ -74,7 +86,7 @@ public class QuizExceptionHandler {
      */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ProblemResponse> handleRuntimeException(RuntimeException exception) {
-        return this.errorResponses(HttpStatus.FORBIDDEN, problemConverter.convert(exception));
+        return this.errorResponses(HttpStatus.INTERNAL_SERVER_ERROR, problemConverter.convert(exception));
     }
 
     /**
