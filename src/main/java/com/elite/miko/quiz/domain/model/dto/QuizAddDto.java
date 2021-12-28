@@ -1,26 +1,21 @@
 package com.elite.miko.quiz.domain.model.dto;
 
-import com.elite.miko.quiz.presentation.model.form.base.AnswerBaseRequest;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.elite.miko.quiz.domain.model.dto.base.AnswerBaseDto;
+import com.elite.miko.quiz.domain.model.dto.base.QuizDtoBase;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
-public class QuizAddDto {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+public class QuizAddDto extends QuizDtoBase {
 
-    private String question;
-
-    private String commentary;
-
-    private Long answerId;
-
-    private Long statusId;
+    private AnswerAddDto answer;
 
     @Data
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = false)
-    @Schema(description = "快投追加リクエスト")
-    public static class AddAnswer {
+    public static class AnswerAddDto extends AnswerBaseDto {
     }
 }

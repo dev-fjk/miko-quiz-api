@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.presentation.controller;
 
 import com.elite.miko.quiz.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.domain.service.QuizClientService;
 import com.elite.miko.quiz.presentation.converter.ResponseConverter;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Range;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,7 @@ public class QuizClientController {
 
     private final QuizClientService clientService;
     private final ResponseConverter responseConverter;
+    private final ModelMapper modelMapper;
 
     /**
      * クイズの問題を検索して返却する
@@ -83,6 +86,7 @@ public class QuizClientController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> quizRequest(@Validated @RequestBody QuizAddRequestForm quizAddRequestForm) {
+        clientService.quizRequest(modelMapper.map(quizAddRequestForm, QuizAddDto.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
