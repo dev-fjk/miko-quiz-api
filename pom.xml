@@ -7,8 +7,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version> <!-- Spring Boot version -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.5.5</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.elite.miko.quiz</groupId>
@@ -21,8 +21,35 @@
         <java.version>11</java.version>
         <spock.version>2.0-groovy-3.0</spock.version>
         <swagger.version>3.0.0</swagger.version>
+        <logback.version>1.2.9</logback.version>
         <test.include.groovy>**/*.groovy</test.include.groovy>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.seasar.doma</groupId>
+                <artifactId>doma-slf4j</artifactId>
+                <version>2.48.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.seasar.doma</groupId>
+                <artifactId>doma-core</artifactId>
+                <version>2.48.0</version>
+            </dependency>
+            <!-- logback RCE脆弱性対応 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -33,10 +60,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -101,6 +124,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!--  actuator micrometer -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
         <!-- Commons系 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -117,6 +146,11 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
 
         <!-- Model Mapper -->
         <dependency>
@@ -125,16 +159,11 @@
             <version>2.4.4</version>
         </dependency>
 
-        <!-- Swagger -->
+        <!-- Swagger SpringDoc -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-bean-validators</artifactId>
-            <version>${swagger.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.0</version>
         </dependency>
 
         <!-- test -->

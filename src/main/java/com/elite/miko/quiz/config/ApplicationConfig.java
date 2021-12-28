@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.application.config;
+package com.elite.miko.quiz.config;
 
 import java.time.Clock;
 import java.time.ZoneId;
