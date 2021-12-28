@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.presentation.controller;
 
-import com.elite.miko.quiz.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.domain.service.AdminAccountService;
 import com.elite.miko.quiz.presentation.model.form.LoginForm;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = LoginController.BASE_PATH)
 @RequiredArgsConstructor
-@Tag(name = LoginController.BASE_PATH,description = "管理用ページ向けの認証を行うAPI")
+@Tag(name = LoginController.BASE_PATH, description = "管理用ページ向けの認証を行うAPI")
 public class LoginController {
 
     public static final String BASE_PATH = "/miko/v1/login/";
@@ -43,6 +43,8 @@ public class LoginController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> isLogin(@Validated @RequestBody LoginForm loginForm) {
-        return ResponseEntity.ok().build();
+        final String token = adminAccountService.login(loginForm.getAccountId(), loginForm.getPassword());
+        // TODO 認証処理盛り込み時にJWTでトークンを生成して返却するように処理を盛り込む
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 }

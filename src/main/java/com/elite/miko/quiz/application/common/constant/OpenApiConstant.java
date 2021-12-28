@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.common.constant;
+package com.elite.miko.quiz.application.common.constant;
 
 /**
  * Swaggerのキー用の定数定義クラス

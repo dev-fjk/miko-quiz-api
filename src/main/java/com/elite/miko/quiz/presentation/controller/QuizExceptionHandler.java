@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.controller;
 
+import com.elite.miko.quiz.application.exception.LoginFailureException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.converter.ProblemConverter;
@@ -43,6 +44,17 @@ public class QuizExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ProblemResponse> handleConstraintViolationException(ConstraintViolationException exception) {
         return this.errorResponses(HttpStatus.BAD_REQUEST, problemConverter.convert(exception));
+    }
+
+    /**
+     * ログイン失敗時のエラー
+     *
+     * @param exception {@link LoginFailureException}
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler(LoginFailureException.class)
+    public ResponseEntity<ProblemResponse> handleLoginFailureException(LoginFailureException exception) {
+        return this.errorResponses(HttpStatus.UNAUTHORIZED, problemConverter.convert(exception));
     }
 
     /**

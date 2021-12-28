@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.common.config;
+package com.elite.miko.quiz.application.common.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

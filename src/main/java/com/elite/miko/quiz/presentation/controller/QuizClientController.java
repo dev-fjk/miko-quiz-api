@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.presentation.controller;
 
-import com.elite.miko.quiz.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.domain.service.QuizClientService;

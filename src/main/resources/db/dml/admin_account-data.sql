@@ -1,4 +1,5 @@
+-- password + saltでハッシュ化した文字列を登録
 insert into
     admin_account (account_id, password)
 values
-    ('root', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');
+    ('root', 'f6ca968fe4b340bdbaef14d0803986ad2ae611fc651c5e00094db5a9f08251f6');
