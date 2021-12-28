@@ -1,3 +1,1 @@
-select *
-from
-    quiz
+select * from quiz

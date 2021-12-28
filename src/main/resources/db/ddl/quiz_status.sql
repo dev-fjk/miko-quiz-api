@@ -1,0 +1,1 @@
+CREATE TYPE quiz_status AS ENUM ('enabled','request','disabled','ng');

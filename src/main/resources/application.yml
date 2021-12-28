@@ -13,6 +13,19 @@ logging:
 
 doma:
   dialect: postgres
+  naming: snake_lower_case
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics,prometheus
+
+  metrics:
+    distribution:
+      percentiles:
+        http:
+          server.requests: 0.5, 0.95, 0.99
 
 ---
 # -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定

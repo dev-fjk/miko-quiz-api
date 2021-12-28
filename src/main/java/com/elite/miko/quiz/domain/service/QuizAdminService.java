@@ -1,10 +1,13 @@
-package com.elite.miko.quiz.domain.repository;
+package com.elite.miko.quiz.domain.service;
 
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
 import java.util.List;
 
-public interface QuizRepository {
+/**
+ * Objectを返しているところは実際は別のクラスを返す
+ */
+public interface QuizAdminService {
 
     Object fetchQuiz(int start, int count);
 
