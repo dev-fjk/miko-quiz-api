@@ -6,7 +6,7 @@ create table quiz
     commentary varchar(200)                           not null,
     status     quiz_status                            not null,
     created_at timestamp(3) default current_timestamp not null,
-    update_at  timestamp(3) default current_timestamp not null
+    updated_at  timestamp(3) default current_timestamp not null
 );
 
 comment on column quiz.quiz_id is 'クイズID';
@@ -14,4 +14,4 @@ comment on column quiz.question is '問題文';
 comment on column quiz.commentary is '解説文';
 comment on column quiz.status is 'クイズステータス';
 comment on column quiz.created_at is 'レコード作成日';
-comment on column quiz.update_at is 'レコード更新日';
+comment on column quiz.updated_at is 'レコード更新日';

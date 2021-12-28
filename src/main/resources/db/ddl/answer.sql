@@ -9,7 +9,7 @@ create table answer
     answer4        varchar(50)                            not null,
     correct_number smallint                               not null,
     created_at     timestamp(3) default current_timestamp not null,
-    update_at      timestamp(3) default current_timestamp not null,
+    updated_at     timestamp(3) default current_timestamp not null,
     foreign key (quiz_id) references quiz (quiz_id),
     unique (quiz_id)
 );
@@ -22,4 +22,4 @@ comment on column answer.answer3 is '回答3';
 comment on column answer.answer4 is '回答4';
 comment on column answer.correct_number is '正解の回答番号';
 comment on column answer.created_at is 'レコード作成日';
-comment on column answer.update_at is 'レコード更新日';
+comment on column answer.updated_at is 'レコード更新日';
