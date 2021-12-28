@@ -1,7 +1,7 @@
 package com.elite.miko.quiz.application.service;
 
+import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
-import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +34,8 @@ public class QuizClientServiceImpl implements QuizClientService {
     public QuizQuestionResult fetchQuiz(int count) {
 
         final List<Quiz> quizList = quizRepository.fetchRandomQuiz(count);
-        if (CollectionUtils.isEmpty(quizList)) {
-            throw new ResourceNotFoundException("クイズが見つかりませんでした");
+        if (quizList.size() < count) {
+            throw new QuizNotEnoughCountException("指定された件数分のクイズが見つかりません");
         }
 
         final List<Long> quizIdList = quizList.stream()

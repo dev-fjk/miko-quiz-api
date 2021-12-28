@@ -61,10 +61,10 @@ public class QuizClientController {
             @ApiResponse(responseCode = "401", ref = OpenApiConstant.UNAUTHORIZED),
             @ApiResponse(responseCode = "403", ref = OpenApiConstant.FORBIDDEN),
             @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_FOUND),
+            @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_ENOUGH_COUNT),
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> fetchQuiz(
-            // TODO 指定取得件数より少ない件数での取得となった場合異常とするように検討する
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Range(min = 10, max = 100) int count) {
         final QuizQuestionResult result = clientService.fetchQuiz(count);

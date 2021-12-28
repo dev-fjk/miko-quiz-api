@@ -13,8 +13,56 @@ values
 insert into
     quiz (quiz_id, question, commentary, status)
 values
-    (104, 'リクエスト問題', 'リクエスト問題です', 'enabled');
+    (104, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
 insert into
     quiz (quiz_id, question, commentary, status)
 values
-    (105, '除外問題', '除外問題です', 'disabled');
+    (105, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (106, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (107, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (108, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (109, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (110, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (111, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (112, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (113, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (114, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (115, 'みこちの挨拶といえば？', 'みこちのあいさつはにゃっはろー', 'enabled');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (116, 'リクエスト問題', 'リクエスト問題です', 'request');
+insert into
+    quiz (quiz_id, question, commentary, status)
+values
+    (117, '除外問題', '除外問題です', 'disabled');

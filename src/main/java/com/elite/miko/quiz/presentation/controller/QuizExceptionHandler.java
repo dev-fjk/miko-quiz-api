@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.presentation.controller;
 
 import com.elite.miko.quiz.application.exception.LoginFailureException;
+import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.converter.ProblemConverter;
@@ -76,6 +77,17 @@ public class QuizExceptionHandler {
      */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ProblemResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
+        return this.errorResponses(HttpStatus.NOT_FOUND, problemConverter.convert(exception));
+    }
+
+    /**
+     * クイズの取得件数不足時のエラー
+     *
+     * @param exception {@link QuizNotEnoughCountException}
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler(QuizNotEnoughCountException.class)
+    public ResponseEntity<ProblemResponse> handleQuizNotEnoughCountException(QuizNotEnoughCountException exception) {
         return this.errorResponses(HttpStatus.NOT_FOUND, problemConverter.convert(exception));
     }
 

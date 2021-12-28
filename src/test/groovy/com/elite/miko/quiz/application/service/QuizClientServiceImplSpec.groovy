@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.application.service
 
-import com.elite.miko.quiz.application.exception.ResourceNotFoundException
+import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException
 import com.elite.miko.quiz.domain.repository.AnswerRepository
 import com.elite.miko.quiz.domain.repository.QuizRepository
 import com.elite.miko.quiz.domain.service.QuizClientService
@@ -40,18 +40,21 @@ class QuizClientServiceImplSpec extends Specification {
         actual.getAnswerList().size() == 10
     }
 
-    def "異常系_fetchQuiz_クイズが見つからない場合例外が発生"() {
+    def "異常系_fetchQuiz_クイズが指定件数以下の場合例外が発生"() {
         given:
         def count = 10
-
-        1 * quizRepository.fetchRandomQuiz(count) >> Collections.emptyList()
+        1 * quizRepository.fetchRandomQuiz(count) >> (1..9).collect() {
+            def tmpQuiz = new Quiz()
+            tmpQuiz.setQuizId(it)
+            return tmpQuiz
+        }
 
         when:
         target.fetchQuiz(count)
 
         then:
-        def exception = thrown(ResourceNotFoundException)
-        exception.getMessage() == "クイズが見つかりませんでした"
+        def exception = thrown(QuizNotEnoughCountException)
+        exception.getMessage() == "指定された件数分のクイズが見つかりません"
         0 * answerRepository.fetchByQuizIdList(_)
     }
 }

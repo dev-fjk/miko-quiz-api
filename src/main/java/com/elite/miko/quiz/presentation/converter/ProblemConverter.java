@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.presentation.converter;
 
 import com.elite.miko.quiz.application.exception.LoginFailureException;
+import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
@@ -85,6 +86,20 @@ public class ProblemConverter {
      * @return {@link ProblemResponse}
      */
     public ProblemResponse convert(ResourceNotFoundException exception) {
+        return ProblemResponse.builder()
+                .title("リクエストされたリソースは見つかりませんでした")
+                .status(HttpStatus.NOT_FOUND.value())
+                .detail(exception.getMessage())
+                .build();
+    }
+
+    /**
+     * 404エラーを返す　クイズの取得件数不足
+     *
+     * @param exception {@link QuizNotEnoughCountException}
+     * @return {@link ProblemResponse}
+     */
+    public ProblemResponse convert(QuizNotEnoughCountException exception) {
         return ProblemResponse.builder()
                 .title("リクエストされたリソースは見つかりませんでした")
                 .status(HttpStatus.NOT_FOUND.value())

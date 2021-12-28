@@ -105,6 +105,12 @@ public class OpenApiConfig {
                 .detail("クイズが見つかりませんでした")
                 .build()
         );
+        var quizCountNotEnough = problemContent(objectMapper, ProblemResponse.builder()
+                .title("リクエストされたリソースは見つかりませんでした")
+                .status(HttpStatus.NOT_FOUND.value())
+                .detail("指定された件数分のクイズが見つかりません")
+                .build()
+        );
         var requestQuizNotFound = problemContent(objectMapper, ProblemResponse.builder()
                 .title("リクエストされたリソースは見つかりませんでした")
                 .status(HttpStatus.NOT_FOUND.value())
@@ -127,7 +133,9 @@ public class OpenApiConfig {
                 .addResponses(OpenApiConstant.FORBIDDEN, new ApiResponse()
                         .description("許可されていないアクセス").content(forbiddenContent))
                 .addResponses(OpenApiConstant.QUIZ_NOT_FOUND, new ApiResponse()
-                        .description("クイズが見つからない").content(quizNotFound))
+                        .description("クイズが見つからない").content(quizCountNotEnough))
+                .addResponses(OpenApiConstant.QUIZ_NOT_ENOUGH_COUNT, new ApiResponse()
+                        .description("クイズの取得件数が指定件数以下").content(quizCountNotEnough))
                 .addResponses(OpenApiConstant.REQUEST_QUIZ_NOT_FOUND, new ApiResponse()
                         .description("リクエスト中のクイズが見つからない").content(requestQuizNotFound))
                 .addResponses(OpenApiConstant.INTERNAL_SERVER_ERROR, new ApiResponse()
