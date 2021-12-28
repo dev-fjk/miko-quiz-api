@@ -3,6 +3,7 @@ package com.elite.miko.quiz.presentation.model.form;
 import com.elite.miko.quiz.presentation.model.form.base.AnswerBaseRequest;
 import com.elite.miko.quiz.presentation.model.form.base.QuizBaseRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.Valid;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -13,12 +14,14 @@ import lombok.ToString;
 @Schema(description = "クイズ追加リクエスト")
 public class QuizAddRequestForm extends QuizBaseRequest {
 
+    @Valid
+    @Schema(description = "クイズの回答")
     private AddAnswer answer;
 
     @Data
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = false)
-    @Schema(description = "快投追加リクエスト")
+    @Schema(description = "回答追加リクエスト")
     public static class AddAnswer extends AnswerBaseRequest {
     }
 }

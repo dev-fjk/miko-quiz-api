@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.springdoc.core.customizers.OpenApiCustomiser;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ public class OpenApiConfig {
      * @param objectMapper : objectMapper
      * @return OpenApiCustomiser
      */
+    @Bean
     public OpenApiCustomiser openApiCustomiser(ObjectMapper objectMapper) {
         return openApi -> {
             addSchemas(openApi.getComponents());
@@ -62,6 +64,12 @@ public class OpenApiConfig {
                 .detail("認証情報が付与されていません")
                 .build()
         );
+        var loginFailureContent = problemContent(objectMapper, ProblemResponse.builder()
+                .title("認証に失敗しました")
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .detail("IDまたはパスワードに誤りがあります")
+                .build()
+        );
         var forbiddenContent = problemContent(objectMapper, ProblemResponse.builder()
                 .title("アクセスが拒否されました")
                 .status(HttpStatus.FORBIDDEN.value())
@@ -91,6 +99,8 @@ public class OpenApiConfig {
                         .description("リクエストパラメータが不正").content(badRequestContent))
                 .addResponses(OpenApiConstant.UNAUTHORIZED, new ApiResponse()
                         .description("認証情報がリクエストに付与されていない").content(unauthorizedContent))
+                .addResponses(OpenApiConstant.LOGIN_FAILURE, new ApiResponse()
+                        .description("ログインに失敗").content(loginFailureContent))
                 .addResponses(OpenApiConstant.FORBIDDEN, new ApiResponse()
                         .description("許可されていないアクセス").content(forbiddenContent))
                 .addResponses(OpenApiConstant.QUIZ_NOT_FOUND, new ApiResponse()

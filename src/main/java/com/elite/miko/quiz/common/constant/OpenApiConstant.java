@@ -6,6 +6,7 @@ package com.elite.miko.quiz.common.constant;
 public class OpenApiConstant {
     public static final String BAD_REQUEST = "badRequest";
     public static final String UNAUTHORIZED = "unauthorized";
+    public static final String LOGIN_FAILURE = "loginFailure";
     public static final String FORBIDDEN = "forbidden";
     public static final String QUIZ_NOT_FOUND = "quizNotFound";
     public static final String REQUEST_QUIZ_NOT_FOUND = "requestQuizNotFound";
