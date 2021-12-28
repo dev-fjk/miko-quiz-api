@@ -7,7 +7,9 @@ import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import java.math.BigDecimal;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +32,7 @@ public class OpenApiConfig {
     public OpenApiCustomiser openApiCustomiser(ObjectMapper objectMapper) {
         return openApi -> {
             addSchemas(openApi.getComponents());
+            addParameters(openApi.getComponents());
             addResponses(openApi.getComponents(), objectMapper);
         };
     }
@@ -42,6 +45,26 @@ public class OpenApiConfig {
     private void addSchemas(Components components) {
         var schemas = ModelConverters.getInstance().read(ProblemResponse.class);
         schemas.forEach(components::addSchemas);
+    }
+
+    /**
+     * パラメータ定義の追加を行う
+     *
+     * @param components : コンポーネント
+     */
+    private void addParameters(Components components) {
+        var quizIdSchema = new Schema<Long>()
+                .type("integer")
+                .format("int64")
+                .minimum(new BigDecimal(1));
+
+        components.addParameters(OpenApiConstant.QUIZ_ID, new Parameter()
+                .name("quizId")
+                .description("クイズID")
+                .in("path")
+                .style(Parameter.StyleEnum.SIMPLE)
+                .schema(quizIdSchema)
+                .required(true));
     }
 
     /**
@@ -73,7 +96,7 @@ public class OpenApiConfig {
         var forbiddenContent = problemContent(objectMapper, ProblemResponse.builder()
                 .title("アクセスが拒否されました")
                 .status(HttpStatus.FORBIDDEN.value())
-                .detail("認証に失敗しました")
+                .detail("アクセスする権限がありません")
                 .build()
         );
         var quizNotFound = problemContent(objectMapper, ProblemResponse.builder()

@@ -4,6 +4,9 @@ package com.elite.miko.quiz.common.constant;
  * Swaggerのキー用の定数定義クラス
  */
 public class OpenApiConstant {
+
+    public static final String QUIZ_ID = "quizId";
+
     public static final String BAD_REQUEST = "badRequest";
     public static final String UNAUTHORIZED = "unauthorized";
     public static final String LOGIN_FAILURE = "loginFailure";
