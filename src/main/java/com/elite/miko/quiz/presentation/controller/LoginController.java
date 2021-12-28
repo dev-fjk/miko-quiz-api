@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Validated
 @RestController
-@RequestMapping(path = AdminController.BASE_PATH)
+@RequestMapping(path = LoginController.BASE_PATH)
 @RequiredArgsConstructor
-public class AdminController {
+@Tag(name = LoginController.BASE_PATH,description = "管理用ページ向けの認証を行うAPI")
+public class LoginController {
 
     public static final String BASE_PATH = "/miko/v1/";
 
