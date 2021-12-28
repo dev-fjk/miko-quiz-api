@@ -22,8 +22,8 @@ public class QuizConverter {
 
         // クイズIDと回答のMapを作成する
         final var quizIdPairAnswerMap = this.createQuizIdPairAnswerMap(result.getAnswerList());
-        return result.getQuizList().stream().map(quiz -> {
 
+        return result.getQuizList().stream().map(quiz -> {
             final Answer tmpAnswer = quizIdPairAnswerMap.get(quiz.getQuizId());
             return QuizQuestion.builder()
                     .quizId(quiz.getQuizId())
@@ -31,7 +31,6 @@ public class QuizConverter {
                     .commentary(quiz.getCommentary())
                     .quizAnswer(this.convertAnswerToQuizAnswer(tmpAnswer))
                     .build();
-
         }).collect(Collectors.toList());
     }
 

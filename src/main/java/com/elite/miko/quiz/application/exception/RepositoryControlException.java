@@ -1,7 +1,7 @@
 package com.elite.miko.quiz.application.exception;
 
 /**
- * リポジトリ操作時の例外
+ * リポジトリ操作時のエラー
  */
 public class RepositoryControlException extends RuntimeException {
 
