@@ -1,11 +1,19 @@
 select
-    quiz_id,
+    tbl.quiz_id,
     question,
     commentary,
     status
 from
-    quiz
+    quiz as tbl,
+    (select
+         quiz_id
+     from
+         quiz
+     order by
+         random()
+    ) as random
 where
-    status = 'enabled'
-order by
-    random()
+    tbl.status = 'enabled' and
+    tbl.quiz_id = random.quiz_id
+limit
+    /* count */10

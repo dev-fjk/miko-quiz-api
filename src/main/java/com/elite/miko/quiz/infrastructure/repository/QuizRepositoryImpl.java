@@ -10,7 +10,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.seasar.doma.jdbc.SelectOptions;
 import org.springframework.stereotype.Repository;
 
 @Slf4j
@@ -29,8 +28,7 @@ public class QuizRepositoryImpl implements QuizRepository {
      */
     @Override
     public List<Quiz> fetchRandomQuiz(int count) {
-        final SelectOptions options = SelectOptions.get().limit(count);
-        return quizDao.fetchQuizRandom(options);
+        return quizDao.fetchQuizRandom(count);
     }
 
     @Override
@@ -52,9 +50,9 @@ public class QuizRepositoryImpl implements QuizRepository {
      */
     @Override
     public Quiz insertQuiz(QuizAddDto quizAddDto) {
+
         // insert後にDB側で採番されたIDがQuizクラスのquizIdに設定されている
         final Quiz insertQuiz = modelMapper.map(quizAddDto, Quiz.class);
-
         int insertCount = quizDao.insert(insertQuiz);
         if (insertCount < 1) {
             throw new RepositoryControlException("クイズの登録に失敗しました");

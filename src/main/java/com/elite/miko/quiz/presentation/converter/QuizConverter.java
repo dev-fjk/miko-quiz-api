@@ -28,6 +28,7 @@ public class QuizConverter {
             return QuizQuestion.builder()
                     .quizId(quiz.getQuizId())
                     .question(quiz.getQuestion())
+                    .commentary(quiz.getCommentary())
                     .quizAnswer(this.convertAnswerToQuizAnswer(tmpAnswer))
                     .build();
 
@@ -42,6 +43,7 @@ public class QuizConverter {
      */
     private QuizQuestion.QuizAnswer convertAnswerToQuizAnswer(final Answer answer) {
         return QuizQuestion.QuizAnswer.builder()
+                .answerId(answer.getAnswerId())
                 .answer1(answer.getAnswer1())
                 .answer2(answer.getAnswer2())
                 .answer3(answer.getAnswer3())

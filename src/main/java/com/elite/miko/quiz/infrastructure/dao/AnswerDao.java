@@ -6,7 +6,6 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
-import org.springframework.lang.NonNull;
 
 @Dao
 @ConfigAutowireable
@@ -19,7 +18,7 @@ public interface AnswerDao {
      * @return 回答一覧
      */
     @Select
-    List<Answer> fetchByQuizIdList(@NonNull List<Long> quizIdList);
+    List<Answer> fetchByQuizIdList(List<Long> quizIdList);
 
     /**
      * 回答の追加を行う
@@ -28,5 +27,5 @@ public interface AnswerDao {
      * @return : 追加件数
      */
     @Insert(excludeNull = true)
-    int insert(@NonNull Answer answer);
+    int insert(Answer answer);
 }

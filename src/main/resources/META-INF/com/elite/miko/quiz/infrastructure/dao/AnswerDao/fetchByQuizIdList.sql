@@ -9,4 +9,4 @@ select
 from
     answer
 where
-        quiz_id in /* quizIdList */(1, 2)
+    quiz_id in /* quizIdList */(1, 2)

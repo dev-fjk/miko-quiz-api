@@ -6,8 +6,6 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
-import org.seasar.doma.jdbc.SelectOptions;
-import org.springframework.lang.NonNull;
 
 @Dao
 @ConfigAutowireable
@@ -16,11 +14,11 @@ public interface QuizDao {
     /**
      * クイズの問題をランダムで指定件数文取得する
      *
-     * @param options : 取得オプション
+     * @param count : 取得件数
      * @return クイズ一覧
      */
     @Select
-    List<Quiz> fetchQuizRandom(SelectOptions options);
+    List<Quiz> fetchQuizRandom(int count);
 
     /**
      * クイズの追加を行う
@@ -29,5 +27,5 @@ public interface QuizDao {
      * @return : 追加件数
      */
     @Insert(excludeNull = true)
-    int insert(@NonNull Quiz quiz);
+    int insert(Quiz quiz);
 }
