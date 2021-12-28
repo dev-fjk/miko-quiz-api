@@ -15,7 +15,7 @@ import lombok.ToString;
 public class QuizAddRequestForm extends QuizBaseRequest {
 
     @Valid
-    @Schema(description = "クイズの回答")
+    @Schema(description = "クイズの回答", required = true)
     private AddAnswer answer;
 
     @Data

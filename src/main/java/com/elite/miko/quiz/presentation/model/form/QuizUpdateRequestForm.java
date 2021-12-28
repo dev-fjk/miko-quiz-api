@@ -14,11 +14,11 @@ import lombok.ToString;
 @Schema(description = "クイズ更新リクエスト")
 public class QuizUpdateRequestForm extends QuizBaseRequest {
 
-    @Schema(description = "クイズID",example = "1")
+    @Schema(description = "クイズID", example = "1", required = true)
     private Long quizId;
 
     @Valid
-    @Schema(description = "クイズの回答")
+    @Schema(description = "クイズの回答", required = true)
     private UpdateAnswer answer;
 
     @Data

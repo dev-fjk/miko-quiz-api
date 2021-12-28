@@ -12,11 +12,11 @@ public abstract class QuizBaseRequest {
 
     @NotBlank(message = "必須項目です")
     @Size(max = 200)
-    @Schema(description = "問題文", example = "さくらみこの挨拶といえば？")
+    @Schema(description = "問題文", example = "さくらみこの挨拶といえば？", required = true)
     private String question;
 
     @NotBlank(message = "必須項目です")
     @Size(max = 200)
-    @Schema(description = "解説文", example = "さくらみこの挨拶はにゃっはろー")
+    @Schema(description = "解説文", example = "さくらみこの挨拶はにゃっはろー", required = true)
     private String commentary;
 }
