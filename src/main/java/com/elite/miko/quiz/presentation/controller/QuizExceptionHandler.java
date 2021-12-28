@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.controller;
 
+import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.presentation.converter.ProblemConverter;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import java.nio.file.AccessDeniedException;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -26,6 +28,7 @@ public class QuizExceptionHandler {
      * @param exception {@link BindException}
      * @return エラーレスポンス
      */
+    @ExceptionHandler(BindException.class)
     public ResponseEntity<ProblemResponse> handleBindException(BindException exception) {
         return this.errorResponses(HttpStatus.BAD_REQUEST, problemConverter.convert(exception));
     }
@@ -36,6 +39,7 @@ public class QuizExceptionHandler {
      * @param exception {@link ConstraintViolationException}
      * @return エラーレスポンス
      */
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ProblemResponse> handleConstraintViolationException(ConstraintViolationException exception) {
         return this.errorResponses(HttpStatus.BAD_REQUEST, problemConverter.convert(exception));
     }
@@ -46,8 +50,20 @@ public class QuizExceptionHandler {
      * @param exception {@link AccessDeniedException}
      * @return エラーレスポンス
      */
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ProblemResponse> handleAccessDeniedException(AccessDeniedException exception) {
         return this.errorResponses(HttpStatus.FORBIDDEN, problemConverter.convert(exception));
+    }
+
+    /**
+     * リソースが見つからない場合のエラー
+     *
+     * @param exception {@link ResourceNotFoundException}
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ProblemResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
+        return this.errorResponses(HttpStatus.NOT_FOUND, problemConverter.convert(exception));
     }
 
     /**
@@ -56,6 +72,7 @@ public class QuizExceptionHandler {
      * @param exception {@link RuntimeException}
      * @return エラーレスポンス
      */
+    @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ProblemResponse> handleRuntimeException(RuntimeException exception) {
         return this.errorResponses(HttpStatus.FORBIDDEN, problemConverter.convert(exception));
     }
