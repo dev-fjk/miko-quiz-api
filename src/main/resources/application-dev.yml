@@ -1,5 +1,6 @@
 ---
 spring:
+  # Localの適当に用意したPostgreSQLに接続
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres

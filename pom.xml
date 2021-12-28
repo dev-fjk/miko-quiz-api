@@ -27,16 +27,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.seasar.doma</groupId>
-                <artifactId>doma-slf4j</artifactId>
-                <version>2.48.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.seasar.doma</groupId>
-                <artifactId>doma-core</artifactId>
-                <version>2.48.0</version>
-            </dependency>
             <!-- logback RCE脆弱性対応 -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>

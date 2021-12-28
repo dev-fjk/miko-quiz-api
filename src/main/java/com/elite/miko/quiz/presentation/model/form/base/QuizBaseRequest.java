@@ -1,0 +1,22 @@
+package com.elite.miko.quiz.presentation.model.form.base;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+@ToString
+public abstract class QuizBaseRequest {
+
+    @NotBlank(message = "必須項目です")
+    @Size(max = 200)
+    @Schema(description = "問題文", example = "さくらみこの挨拶といえば？")
+    private String question;
+
+    @NotBlank(message = "必須項目です")
+    @Size(max = 200)
+    @Schema(description = "回答文", example = "さくらみこの挨拶はにゃっはろー")
+    private String commentary;
+}
