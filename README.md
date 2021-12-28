@@ -1,8 +1,9 @@
 # miko-quiz-api
 みこちのクイズアプリ用Rest Api
 
-## entry point
-[Swagger UI](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/)
+## API仕様書(Swagger UI)
+- [git hub pages](https://dev-fjk.github.io/miko-quiz-api/)
+- [local(ビルドが必要)](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/)
 
 ## パッケージ構成
 | dir1 | dir2  | dir3           | dir4       | dir5     | description
@@ -38,3 +39,4 @@
 - [Doma リファレンス](http://doma.seasar.org/reference/index.html)
 - [Doma Framework](https://github.com/domaframework/doma-spring-boot)
 - [ControllerからSwaggerを自動生成](https://qiita.com/rhirabay/items/f7527c91b5defc424b9c)
+- [SwaggerUIを簡単にGithub Pagesで公開する方法](https://qiita.com/youdays/items/38f15b90402d097fb13e)
