@@ -4,11 +4,15 @@ import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
 import com.elite.miko.quiz.presentation.model.response.QuizQuestionListResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ResponseConverter {
+
+    private final QuizConverter quizConverter;
 
     /**
      * クイズの問題取得結果用レスポンスを作成する
@@ -17,8 +21,7 @@ public class ResponseConverter {
      * @return {@link QuizQuestionListResponse}
      */
     public QuizQuestionListResponse convert(@NonNull QuizQuestionResult result) {
-        // TODO 変換処理の盛り込み
-        return new QuizQuestionListResponse();
+        return new QuizQuestionListResponse(result.getCount(), quizConverter.convert(result));
     }
 
     /**

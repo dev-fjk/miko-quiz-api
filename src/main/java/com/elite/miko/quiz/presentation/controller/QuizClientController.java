@@ -1,6 +1,9 @@
 package com.elite.miko.quiz.presentation.controller;
 
 import com.elite.miko.quiz.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
+import com.elite.miko.quiz.domain.service.QuizClientService;
+import com.elite.miko.quiz.presentation.converter.ResponseConverter;
 import com.elite.miko.quiz.presentation.model.form.QuizAddRequestForm;
 import com.elite.miko.quiz.presentation.model.response.QuizQuestionListResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,8 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,15 @@ public class QuizClientController {
 
     public static final String BASE_PATH = "/miko/v1/client/";
 
+    private final QuizClientService clientService;
+    private final ResponseConverter responseConverter;
+
+    /**
+     * クイズの問題を検索して返却する
+     *
+     * @param count : クイズの取得問題数
+     * @return クイズ取得結果
+     */
     @GetMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "クイズの一覧を取得する")
@@ -49,8 +61,11 @@ public class QuizClientController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> fetchQuiz(
-            @RequestParam(name = "count", required = false, defaultValue = "10") @Size(min = 10, max = 100) int count) {
-        return ResponseEntity.ok().build();
+            // TODO 指定取得件数より少ない件数での取得となった場合異常とするように検討する
+            @RequestParam(name = "count", required = false, defaultValue = "10")
+            @Range(min = 10, max = 100) int count) {
+        final QuizQuestionResult result = clientService.fetchQuiz(count);
+        return new ResponseEntity<>(responseConverter.convert(result), HttpStatus.OK);
     }
 
     @PostMapping(path = "/quizzes")
