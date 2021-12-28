@@ -17,7 +17,6 @@ spring:
 
       data-locations:
         - classpath:db/dml/admin_account-data.sql
-        - classpath:db/dml/quiz_status-data.sql
         - classpath:db/dml/quiz-data.sql
         - classpath:db/dml/answer-data.sql
   h2:

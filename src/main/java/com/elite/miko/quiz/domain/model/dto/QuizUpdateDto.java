@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class QuizUpdateDto {
 
+    private Long quizId;
+
     private String question;
 
     private String commentary;
