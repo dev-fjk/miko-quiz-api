@@ -10,13 +10,13 @@ spring:
       mode: embedded
       # Spring起動の度に投入するSQLファイル 外部キーの関係で以下の順序で投入する
       schema-locations:
-        - classpath:h2/ddl/quiz_status.sql
-        - classpath:h2/ddl/answer.sql
-        - classpath:h2/ddl/quiz.sql
+        - classpath:db/ddl/quiz_status.sql
+        - classpath:db/ddl/answer.sql
+        - classpath:db/ddl/quiz.sql
       data-locations:
-        - classpath:h2/dml/quiz_status-data.sql
-        - classpath:h2/dml/answer-data.sql
-        - classpath:h2/dml/quiz-data.sql
+        - classpath:db/dml/quiz_status-data.sql
+        - classpath:db/dml/answer-data.sql
+        - classpath:db/dml/quiz-data.sql
   h2:
     console:
       enabled: true

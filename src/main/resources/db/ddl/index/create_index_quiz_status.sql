@@ -1,0 +1,1 @@
+CREATE INDEX idx_quiz_status_status ON quiz_status(status)

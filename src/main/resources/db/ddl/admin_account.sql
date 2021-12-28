@@ -1,4 +1,4 @@
-drop table if admin_account;
+drop table if exists admin_account;
 create table admin_account
 (
 	account_id integer primary key,

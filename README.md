@@ -4,8 +4,6 @@
 ## entry point
 TODO コントローラ完成後Swaggerで自動生成してdoc配下に配置
 
-## DB
-ER図だけ作成済み
 
 ## パッケージ構成
 | dir1 | dir2  | dir3           | dir4       | dir5     | description
