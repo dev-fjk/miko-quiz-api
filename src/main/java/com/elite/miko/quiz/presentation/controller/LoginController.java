@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = LoginController.BASE_PATH,description = "管理用ページ向けの認証を行うAPI")
 public class LoginController {
 
-    public static final String BASE_PATH = "/miko/v1/";
+    public static final String BASE_PATH = "/miko/v1/login/";
 
     private final AdminAccountService adminAccountService;
 
-    @PostMapping(path = "/login")
+    @PostMapping
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "管理者用ページへ遷移するためのログイン処理を行う")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
