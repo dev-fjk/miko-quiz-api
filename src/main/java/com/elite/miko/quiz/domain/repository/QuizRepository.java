@@ -2,7 +2,7 @@ package com.elite.miko.quiz.domain.repository;
 
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
@@ -44,7 +44,7 @@ public interface QuizRepository {
      */
     Quiz insertQuiz(QuizAddDto quizAddDto);
 
-    void updateQuiz(QuizUpdateDto quizUpdateDto);
+    void updateQuiz(QuizUpdateListDto quizUpdateListDto);
 
     /**
      * クイズの削除を行う

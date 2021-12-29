@@ -4,7 +4,7 @@ import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.domain.repository.QuizRepository;
 import com.elite.miko.quiz.infrastructure.dao.QuizDao;
@@ -96,7 +96,7 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     @Override
-    public void updateQuiz(QuizUpdateDto quizUpdateDto) {
+    public void updateQuiz(QuizUpdateListDto quizUpdateListDto) {
 
     }
 

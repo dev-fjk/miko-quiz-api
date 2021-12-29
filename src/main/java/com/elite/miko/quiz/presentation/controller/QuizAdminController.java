@@ -2,6 +2,7 @@ package com.elite.miko.quiz.presentation.controller;
 
 import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
 import com.elite.miko.quiz.domain.service.QuizAdminService;
 import com.elite.miko.quiz.presentation.converter.ResponseConverter;
 import com.elite.miko.quiz.presentation.model.form.QuizAddForm;
@@ -29,7 +30,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,12 +138,9 @@ public class QuizAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping(path = "/quizzes/{quizId}")
+    @PutMapping(path = "/quizzes/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの更新を行う")
-    @Parameters({
-            @Parameter(name = "quizId", ref = OpenApiConstant.QUIZ_ID)
-    })
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(schema = @Schema(implementation = QuizUpdateForm.class))
     )
@@ -155,9 +152,9 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_FOUND),
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
-    public ResponseEntity<?> updateQuiz(
-            @PathVariable("quizId") @Min(1) long quizId,
-            @Validated @RequestBody QuizUpdateForm quizUpdateForm) {
+    public ResponseEntity<?> updateQuiz(@RequestBody QuizUpdateForm quizUpdateForm) {
+        quizValidator.validate(quizUpdateForm);
+        adminService.updateQuiz(modelMapper.map(quizUpdateForm, QuizUpdateListDto.class));
         return ResponseEntity.noContent().build();
     }
 

@@ -4,7 +4,7 @@ import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import com.elite.miko.quiz.domain.repository.AnswerRepository;
@@ -71,9 +71,14 @@ public class QuizAdminServiceImpl implements QuizAdminService {
         }
     }
 
+    /**
+     * クイズの更新を行う
+     *
+     * @param quizUpdateListDto : 更新するクイズ情報一覧を保持したDto
+     */
     @Override
-    @Transactional(rollbackFor = Throwable.class)
-    public void updateQuiz(QuizUpdateDto quizUpdateDto) {
+    public void updateQuiz(QuizUpdateListDto quizUpdateListDto) {
+        System.out.println(quizUpdateListDto);
 
     }
 

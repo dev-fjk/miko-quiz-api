@@ -1,7 +1,7 @@
 package com.elite.miko.quiz.domain.service;
 
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
 import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import java.util.List;
 
@@ -35,7 +35,12 @@ public interface QuizAdminService {
      */
     void insertQuiz(QuizAddDto quizAddDto);
 
-    void updateQuiz(QuizUpdateDto quizUpdateDto);
+    /**
+     * クイズの更新を行う
+     *
+     * @param quizUpdateListDto : 更新するクイズ情報一覧を保持したDto
+     */
+    void updateQuiz(QuizUpdateListDto quizUpdateListDto);
 
     /**
      * クイズの削除を行う
