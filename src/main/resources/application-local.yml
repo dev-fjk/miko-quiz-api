@@ -10,7 +10,6 @@ spring:
       mode: embedded
       schema-locations:
         - classpath:db/ddl/admin_account.sql
-        - classpath:db/ddl/quiz_status.sql
         - classpath:db/ddl/quiz.sql
         - classpath:db/ddl/answer.sql
       data-locations:

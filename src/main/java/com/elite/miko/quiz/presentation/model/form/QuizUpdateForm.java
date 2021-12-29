@@ -1,5 +1,7 @@
 package com.elite.miko.quiz.presentation.model.form;
 
+import com.elite.miko.quiz.domain.model.consts.QuizStatus;
+import com.elite.miko.quiz.presentation.model.annotation.QuizStatusConstraint;
 import com.elite.miko.quiz.presentation.model.form.base.AnswerBaseRequest;
 import com.elite.miko.quiz.presentation.model.form.base.QuizBaseRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,8 +18,12 @@ import lombok.ToString;
 public class QuizUpdateForm extends QuizBaseRequest {
 
     @NotNull(message = "必須パラメータです")
-    @Schema(description = "クイズID", example = "1", required = true)
+    @Schema(description = "クイズID", example = "10", required = true)
     private Long quizId;
+
+    @QuizStatusConstraint
+    @Schema(description = "クイズステータス", example = "1", required = true)
+    private QuizStatus quizStatus;
 
     @Valid
     @Schema(description = "クイズの回答", required = true)
@@ -30,7 +36,7 @@ public class QuizUpdateForm extends QuizBaseRequest {
     public static class UpdateAnswer extends AnswerBaseRequest {
 
         @NotNull(message = "必須パラメータです")
-        @Schema(description = "回答ID", example = "10", required = true)
+        @Schema(description = "回答ID", example = "101", required = true)
         private Long answerId;
     }
 }

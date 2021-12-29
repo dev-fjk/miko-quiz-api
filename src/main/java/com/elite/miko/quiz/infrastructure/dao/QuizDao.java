@@ -19,7 +19,7 @@ public interface QuizDao {
      * @return クイズ一覧
      */
     @Select
-    List<Quiz> fetchQuizRandom(int count);
+    List<Quiz> fetchQuizRandom(int count, String status);
 
     /**
      * クイズ一覧の取得を行う
