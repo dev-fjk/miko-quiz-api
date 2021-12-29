@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 /**
- * 基本必ず使う依存関係のDI定義クラス
+ * アプリケーション共通のDI定義クラス
  */
 @Profile("!test")
 @Configuration
@@ -23,7 +23,11 @@ public class ApplicationConfig {
     // 日本向けTimeZoneの設定
     private static final String JP_TIME_ZONE = "Asia/Tokyo";
 
-    @Bean(name = "clock")
+    /**
+     * 日本標準時のタイムゾーンを持つClockを生成
+     * @return Clock
+     */
+    @Bean
     public Clock clock() {
         return Clock.system(ZoneId.of(JP_TIME_ZONE));
     }
@@ -31,7 +35,7 @@ public class ApplicationConfig {
     /**
      * ModelMapper
      *
-     * @return : ModelMapper
+     * @return ModelMapper
      */
     @Bean
     public ModelMapper modelMapper() {
@@ -41,7 +45,7 @@ public class ApplicationConfig {
     /**
      * 自作ObjectMapperの定義
      *
-     * @return : ObjectMapper
+     * @return ObjectMapper
      */
     @Bean
     public ObjectMapper objectMapper() {
