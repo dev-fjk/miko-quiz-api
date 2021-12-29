@@ -4,8 +4,8 @@ import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.service.QuizAdminService;
 import com.elite.miko.quiz.presentation.converter.ResponseConverter;
-import com.elite.miko.quiz.presentation.model.form.QuizAddRequestForm;
-import com.elite.miko.quiz.presentation.model.form.QuizUpdateRequestForm;
+import com.elite.miko.quiz.presentation.model.form.QuizAddForm;
+import com.elite.miko.quiz.presentation.model.form.QuizUpdateForm;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -110,14 +110,14 @@ public class QuizAdminController {
     /**
      * クイズの追加を行う
      *
-     * @param quizAddRequestForm : クイズ追加Form
+     * @param quizAddForm : クイズ追加Form
      * @return 追加成功時は201を返却
      */
     @PostMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "クイズの追加を行う")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(schema = @Schema(implementation = QuizAddRequestForm.class))
+            content = @Content(schema = @Schema(implementation = QuizAddForm.class))
     )
     @ApiResponses({
             @ApiResponse(responseCode = "201", ref = OpenApiConstant.INSERTED_SUCCESS),
@@ -127,8 +127,8 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_FOUND),
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
-    public ResponseEntity<?> addQuiz(@Validated @RequestBody QuizAddRequestForm quizAddRequestForm) {
-        adminService.insertQuiz(modelMapper.map(quizAddRequestForm, QuizAddDto.class));
+    public ResponseEntity<?> addQuiz(@Validated @RequestBody QuizAddForm quizAddForm) {
+        adminService.insertQuiz(modelMapper.map(quizAddForm, QuizAddDto.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -139,7 +139,7 @@ public class QuizAdminController {
             @Parameter(name = "quizId", ref = OpenApiConstant.QUIZ_ID)
     })
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(schema = @Schema(implementation = QuizUpdateRequestForm.class))
+            content = @Content(schema = @Schema(implementation = QuizUpdateForm.class))
     )
     @ApiResponses({
             @ApiResponse(responseCode = "204", ref = OpenApiConstant.UPDATED_SUCCESS),
@@ -151,7 +151,7 @@ public class QuizAdminController {
     })
     public ResponseEntity<?> updateQuiz(
             @PathVariable("quizId") @Min(1) long quizId,
-            @Validated @RequestBody QuizUpdateRequestForm quizUpdateRequestForm) {
+            @Validated @RequestBody QuizUpdateForm quizUpdateForm) {
         return ResponseEntity.noContent().build();
     }
 

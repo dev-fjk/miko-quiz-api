@@ -19,5 +19,6 @@ public class QuizUpdateDto extends QuizDtoBase {
     @ToString(callSuper = true)
     @EqualsAndHashCode(callSuper = false)
     public static class AnswerUpdateDto extends AnswerBaseDto {
+        private Long quizId;
     }
 }

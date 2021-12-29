@@ -5,7 +5,7 @@ import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.domain.service.QuizClientService;
 import com.elite.miko.quiz.presentation.converter.ResponseConverter;
-import com.elite.miko.quiz.presentation.model.form.QuizAddRequestForm;
+import com.elite.miko.quiz.presentation.model.form.QuizAddForm;
 import com.elite.miko.quiz.presentation.model.response.QuizQuestionListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -74,14 +74,14 @@ public class QuizClientController {
     /**
      * クイズの追加リクエストを行う
      *
-     * @param quizAddRequestForm : クイズ追加リクエスト
+     * @param quizAddForm : クイズ追加リクエスト
      * @return 追加成功時は201が返却
      */
     @PostMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "クイズの追加リクエストを行う")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(schema = @Schema(implementation = QuizAddRequestForm.class))
+            content = @Content(schema = @Schema(implementation = QuizAddForm.class))
     )
     @ApiResponses({
             @ApiResponse(responseCode = "201", ref = OpenApiConstant.INSERTED_SUCCESS),
@@ -91,8 +91,8 @@ public class QuizClientController {
             @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_FOUND),
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
-    public ResponseEntity<?> quizRequest(@Validated @RequestBody QuizAddRequestForm quizAddRequestForm) {
-        clientService.quizRequest(modelMapper.map(quizAddRequestForm, QuizAddDto.class));
+    public ResponseEntity<?> quizRequest(@Validated @RequestBody QuizAddForm quizAddForm) {
+        clientService.quizRequest(modelMapper.map(quizAddForm, QuizAddDto.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

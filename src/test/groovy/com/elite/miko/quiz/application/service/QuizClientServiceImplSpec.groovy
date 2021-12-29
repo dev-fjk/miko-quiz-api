@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.application.service
 
 import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException
+import com.elite.miko.quiz.domain.model.result.FetchQuizResult
 import com.elite.miko.quiz.domain.repository.AnswerRepository
 import com.elite.miko.quiz.domain.repository.QuizRepository
 import com.elite.miko.quiz.domain.service.QuizClientService
@@ -23,11 +24,15 @@ class QuizClientServiceImplSpec extends Specification {
         given:
         def count = 10
 
-        1 * quizRepository.fetchRandomQuiz(count) >> (1..10).collect() {
+        def quizList = (1..10).collect() {
             def tmpQuiz = new Quiz()
             tmpQuiz.setQuizId(it)
             return tmpQuiz
         }
+        1 * quizRepository.fetchRandomQuiz(count) >> FetchQuizResult.builder()
+                .total(10)
+                .quizList(quizList)
+                .build()
         1 * answerRepository.fetchByQuizIdList(_) >> (1..10).collect() {
             return new Answer()
         }
@@ -43,11 +48,16 @@ class QuizClientServiceImplSpec extends Specification {
     def "異常系_fetchQuiz_クイズが指定件数以下の場合例外が発生"() {
         given:
         def count = 10
-        1 * quizRepository.fetchRandomQuiz(count) >> (1..9).collect() {
+
+        def quizList = (1..9).collect() {
             def tmpQuiz = new Quiz()
             tmpQuiz.setQuizId(it)
             return tmpQuiz
         }
+        1 * quizRepository.fetchRandomQuiz(count) >> FetchQuizResult.builder()
+                .total(9)
+                .quizList(quizList)
+                .build()
 
         when:
         target.fetchQuiz(count)

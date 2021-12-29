@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @Schema(description = "クイズ追加リクエスト")
-public class QuizAddRequestForm extends QuizBaseRequest {
+public class QuizAddForm extends QuizBaseRequest {
 
     @Valid
     @Schema(description = "クイズの回答", required = true)
