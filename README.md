@@ -29,7 +29,6 @@
 |      |       |                |            | utility    | 共通処理の定義用
 |      |       |                | exception  |            | 自作業務例外定義用パッケージ
 |      |       |                | service    |            | Serviceクラスの実装 メインのビジネスロジック実装箇所
-|      |       |                |            |            |
 |      |       | domain         |            |            | ドメイン層 アプリ内部で使用するmodelとIFの定義
 |      |       |                | model      |            |
 |      |       |                |            | consts     | Enum定義
@@ -37,13 +36,11 @@
 |      |       |                |            | result     | ドメイン層で使用する取得結果保持用のmodel定義
 |      |       |                | service    |            | サービスIFの定義
 |      |       |                | repository |            | リポリトリIFの定義
-|      |       |                |            |            |
 |      |       | infrastructure |            |            | インフラ層 外部サービスへのアクセス部
 |      |       |                | repository |            | リポジトリ実装クラスの作成 daoとサービス層間のビジネスロジック盛り込み
 |      |       |                | dao        |            | domaのデータアクセスリポジトリ DBにSQLを発行
 |      |       |                | model      |            |
 |      |       |                |            | entity     | DBから取得したデータ保持用のmodel定義
-|      |       |                |            |            |
 |      |       | presentation   |            |            | プレゼンテーション層 Restの送受信周りのソース定義
 |      |       |                | controller |            | RestControllerの定義用パッケージ
 |      |       |                | validation |            | 入力チェック用処理の定義
