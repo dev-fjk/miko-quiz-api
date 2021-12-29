@@ -138,6 +138,12 @@ public class QuizAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * クイズの更新を行う
+     *
+     * @param quizUpdateForm : クイズ更新用Form
+     * @return 更新成功の場合204を返却
+     */
     @PutMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの更新を行う")
