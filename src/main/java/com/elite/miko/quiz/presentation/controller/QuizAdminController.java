@@ -7,6 +7,7 @@ import com.elite.miko.quiz.presentation.converter.ResponseConverter;
 import com.elite.miko.quiz.presentation.model.form.QuizAddForm;
 import com.elite.miko.quiz.presentation.model.form.QuizUpdateForm;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
+import com.elite.miko.quiz.presentation.validator.QuizIdListValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -47,7 +48,9 @@ public class QuizAdminController {
     public static final String BASE_PATH = "/miko/v1/admin/";
 
     private final QuizAdminService adminService;
+
     private final ResponseConverter responseConverter;
+    private final QuizIdListValidator quizIdListValidator;
     private final ModelMapper modelMapper;
 
     /**
@@ -169,7 +172,7 @@ public class QuizAdminController {
     @Operation(summary = "クイズの削除を行う")
     @Parameters({
             @Parameter(name = "quizIdList", in = ParameterIn.QUERY,
-                    description = "削除対象のクイズIDリストカンマ区切りで設定する",
+                    description = "削除対象のクイズIDリストカンマ区切りで設定する 最大50件",
                     schema = @Schema(type = "array", format = "int64")
             )
     })
@@ -182,7 +185,7 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> deleteQuiz(@RequestParam(name = "quizIdList") @NotNull List<Long> quizIdList) {
-        // 異常な数値が入っていても空振りするだけなのでバリデーションは厳密なバリデーションは行わない
+        quizIdListValidator.validate(quizIdList);
         adminService.deleteQuiz(quizIdList);
         return ResponseEntity.noContent().build();
     }
