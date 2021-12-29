@@ -8,13 +8,11 @@ spring:
   sql:
     init:
       mode: embedded
-      # Spring起動の度に投入するSQLファイル 外部キーの関係で以下の順序で投入する
       schema-locations:
         - classpath:db/ddl/admin_account.sql
         - classpath:db/ddl/quiz_status.sql
         - classpath:db/ddl/quiz.sql
         - classpath:db/ddl/answer.sql
-
       data-locations:
         - classpath:db/dml/admin_account-data.sql
         - classpath:db/dml/quiz-data.sql

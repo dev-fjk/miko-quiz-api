@@ -20,7 +20,6 @@ management:
     web:
       exposure:
         include: info,health,metrics,prometheus
-
   metrics:
     distribution:
       percentiles:
