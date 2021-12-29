@@ -28,7 +28,7 @@ public class QuizRepositoryImpl implements QuizRepository {
     private final ModelMapper modelMapper;
 
     /**
-     * クイズの問題をランダムで指定件数文取得する
+     * クイズの問題をランダムで指定件数分取得する
      *
      * @param count : 指定取得件数
      * @return クイズ取得結果

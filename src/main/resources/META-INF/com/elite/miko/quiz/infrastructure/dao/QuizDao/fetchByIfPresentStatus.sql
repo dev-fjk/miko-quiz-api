@@ -9,3 +9,5 @@ where
 /*%if quizStatus != null */
     status = /* quizStatus */'request'
 /*%end*/
+order by
+    quiz_id -- limitとoffset指定のため
