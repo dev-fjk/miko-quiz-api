@@ -14,26 +14,55 @@ tags:
 - name: /miko/v1/admin/
   description: クイズ管理用のAPI
 paths:
-  /miko/v1/admin/quizzes/{quizId}:
+  /miko/v1/admin/quizzes:
+    get:
+      tags:
+      - /miko/v1/admin/
+      summary: クイズの一覧を取得する(管理用)
+      operationId: fetchQuiz_1
+      parameters:
+      - name: start
+        in: query
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      responses:
+        "200":
+          description: クイズ一覧(管理用)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizManageListResponse'
+        "500":
+          $ref: '#/components/responses/internalServerError'
+        "400":
+          $ref: '#/components/responses/badRequest'
+        "401":
+          $ref: '#/components/responses/unauthorized'
+        "404":
+          $ref: '#/components/responses/quizNotFound'
+        "403":
+          $ref: '#/components/responses/forbidden'
     put:
       tags:
       - /miko/v1/admin/
       summary: クイズの更新を行う
       operationId: updateQuiz
-      parameters:
-      - name: quizId
-        in: path
-        required: true
-        $ref: '#/components/parameters/quizId'
-        schema:
-          minimum: 1
-          type: integer
-          format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/QuizUpdateRequestForm'
+              $ref: '#/components/schemas/QuizUpdateForm'
         required: true
       responses:
         "500":
@@ -48,20 +77,17 @@ paths:
           $ref: '#/components/responses/quizNotFound'
         "403":
           $ref: '#/components/responses/forbidden'
-    delete:
+    post:
       tags:
       - /miko/v1/admin/
-      summary: クイズの削除を行う
-      operationId: deleteQuiz
-      parameters:
-      - name: quizId
-        in: path
+      summary: クイズの追加を行う
+      operationId: addQuiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizAddForm'
         required: true
-        $ref: '#/components/parameters/quizId'
-        schema:
-          minimum: 1
-          type: integer
-          format: int64
       responses:
         "500":
           $ref: '#/components/responses/internalServerError'
@@ -73,6 +99,32 @@ paths:
           $ref: '#/components/responses/quizNotFound'
         "201":
           $ref: '#/components/responses/insertedSuccessfully'
+        "403":
+          $ref: '#/components/responses/forbidden'
+    delete:
+      tags:
+      - /miko/v1/admin/
+      summary: クイズの削除を行う
+      operationId: deleteQuiz
+      parameters:
+      - name: quizIdList
+        in: query
+        description: 削除対象のクイズIDリストカンマ区切りで設定する 最大50件
+        required: true
+        schema:
+          type: array
+          format: int64
+      responses:
+        "204":
+          $ref: '#/components/responses/deletedSuccessfully'
+        "500":
+          $ref: '#/components/responses/internalServerError'
+        "400":
+          $ref: '#/components/responses/badRequest'
+        "401":
+          $ref: '#/components/responses/unauthorized'
+        "404":
+          $ref: '#/components/responses/quizNotFound'
         "403":
           $ref: '#/components/responses/forbidden'
   /miko/v1/login/:
@@ -111,20 +163,20 @@ paths:
           format: int32
           default: 10
       responses:
-        "500":
-          $ref: '#/components/responses/internalServerError'
-        "400":
-          $ref: '#/components/responses/badRequest'
-        "401":
-          $ref: '#/components/responses/unauthorized'
-        "404":
-          $ref: '#/components/responses/quizNotFound'
         "200":
           description: クイズ一覧
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuizQuestionListResponse'
+        "500":
+          $ref: '#/components/responses/internalServerError'
+        "400":
+          $ref: '#/components/responses/badRequest'
+        "404":
+          $ref: '#/components/responses/quizNotFound'
+        "401":
+          $ref: '#/components/responses/unauthorized'
         "403":
           $ref: '#/components/responses/forbidden'
     post:
@@ -136,72 +188,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/QuizAddRequestForm'
-        required: true
-      responses:
-        "500":
-          $ref: '#/components/responses/internalServerError'
-        "400":
-          $ref: '#/components/responses/badRequest'
-        "401":
-          $ref: '#/components/responses/unauthorized'
-        "404":
-          $ref: '#/components/responses/quizNotFound'
-        "201":
-          $ref: '#/components/responses/insertedSuccessfully'
-        "403":
-          $ref: '#/components/responses/forbidden'
-  /miko/v1/admin/quizzes:
-    get:
-      tags:
-      - /miko/v1/admin/
-      summary: クイズの一覧を取得する(管理用)
-      operationId: fetchQuiz_1
-      parameters:
-      - name: start
-        in: query
-        required: false
-        schema:
-          minimum: 1
-          type: integer
-          format: int32
-          default: 1
-      - name: count
-        in: query
-        required: false
-        schema:
-          maximum: 50
-          minimum: 0
-          type: integer
-          format: int32
-          default: 20
-      responses:
-        "200":
-          description: クイズ一覧(管理用)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QuizManageListResponse'
-        "500":
-          $ref: '#/components/responses/internalServerError'
-        "400":
-          $ref: '#/components/responses/badRequest'
-        "401":
-          $ref: '#/components/responses/unauthorized'
-        "404":
-          $ref: '#/components/responses/quizNotFound'
-        "403":
-          $ref: '#/components/responses/forbidden'
-    post:
-      tags:
-      - /miko/v1/admin/
-      summary: クイズの追加を行う
-      operationId: addQuiz
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QuizAddRequestForm'
+              $ref: '#/components/schemas/QuizAddForm'
         required: true
       responses:
         "500":
@@ -235,12 +222,16 @@ paths:
         in: query
         required: false
         schema:
-          maximum: 50
-          minimum: 0
           type: integer
           format: int32
           default: 20
       responses:
+        "200":
+          description: リクエスト中のクイズ一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizManageListResponse'
         "500":
           $ref: '#/components/responses/internalServerError'
         "400":
@@ -249,43 +240,29 @@ paths:
           $ref: '#/components/responses/unauthorized'
         "403":
           $ref: '#/components/responses/forbidden'
-        "200":
-          description: リクエスト中のクイズ一覧
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QuizManageListResponse'
         "404":
           $ref: '#/components/responses/requestQuizNotFound'
 components:
   schemas:
-    QuizUpdateRequestForm:
+    QuizStatus:
+      type: string
+      description: "クイズの状態: \n* `1` - 有効\n* `2` - 追加リクエスト中\n* `9` - 無効\n"
+      example: "1"
+      enum:
+      - "1"
+      - "2"
+      - "9"
+      - invalid
+    QuizUpdateForm:
       required:
-      - answer
-      - commentary
-      - question
-      - quizId
+      - quizList
       type: object
       properties:
-        question:
-          maxLength: 200
-          minLength: 0
-          type: string
-          description: 問題文
-          example: さくらみこの挨拶といえば？
-        commentary:
-          maxLength: 200
-          minLength: 0
-          type: string
-          description: 解説文
-          example: さくらみこの挨拶はにゃっはろー
-        quizId:
-          type: integer
-          description: クイズID
-          format: int64
-          example: 1
-        answer:
-          $ref: '#/components/schemas/UpdateAnswer'
+        quizList:
+          type: array
+          description: 更新するクイズ一覧
+          items:
+            $ref: '#/components/schemas/UpdateQuiz'
       description: クイズ更新リクエスト
     UpdateAnswer:
       required:
@@ -293,6 +270,7 @@ components:
       - answer2
       - answer3
       - answer4
+      - answerId
       - correctNumber
       type: object
       properties:
@@ -325,7 +303,43 @@ components:
           description: 正答番号 1から4のいずれかの数字を設定
           format: int32
           example: 1
+        answerId:
+          type: integer
+          description: 回答ID
+          format: int64
+          example: 101
       description: 回答更新リクエスト
+    UpdateQuiz:
+      required:
+      - answer
+      - commentary
+      - question
+      - quizId
+      - quizStatus
+      type: object
+      properties:
+        question:
+          maxLength: 200
+          minLength: 0
+          type: string
+          description: 問題文
+          example: さくらみこの挨拶といえば？
+        commentary:
+          maxLength: 200
+          minLength: 0
+          type: string
+          description: 解説文
+          example: さくらみこの挨拶はにゃっはろー
+        quizId:
+          type: integer
+          description: クイズID
+          format: int64
+          example: 10
+        quizStatus:
+          $ref: '#/components/schemas/QuizStatus'
+        answer:
+          $ref: '#/components/schemas/UpdateAnswer'
+      description: 更新するクイズ情報
     LoginForm:
       required:
       - accountId
@@ -337,9 +351,11 @@ components:
           minLength: 0
           type: string
           description: アカウントID
+          example: root
         password:
           type: string
           description: パスワード
+          example: password
       description: ログインリクエスト
     AddAnswer:
       required:
@@ -380,7 +396,7 @@ components:
           format: int32
           example: 1
       description: 回答追加リクエスト
-    QuizAddRequestForm:
+    QuizAddForm:
       required:
       - answer
       - commentary
@@ -423,10 +439,10 @@ components:
       description: クイズ問題取得結果
     QuizQuestionResponse.QuizQuestion:
       required:
+      - answer
       - commentary
       - question
       - quizId
-      - quizManageAnswer
       - quizStatus
       type: object
       properties:
@@ -446,8 +462,8 @@ components:
         quizStatus:
           type: string
           description: クイズの状態
-          example: enabled
-        quizManageAnswer:
+          example: 有効
+        answer:
           $ref: "#/components/schemas/QuizQuestionResponse.QuizQuestion,QuizAnswer"
       description: クイズ一覧取得結果
     QuizQuestionResponse.QuizQuestion,QuizAnswer:
@@ -565,7 +581,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemResponse'
           example: "{\"type\":\"about:blank\",\"title\":\"認証に失敗しました\",\"status\":401,\"\
-            detail\":\"IDまたはパスワードに誤りがあります\"}"
+            detail\":\"ログインに失敗しました\"}"
     forbidden:
       description: 許可されていないアクセス
       content:
@@ -581,7 +597,15 @@ components:
           schema:
             $ref: '#/components/schemas/ProblemResponse'
           example: "{\"type\":\"about:blank\",\"title\":\"リクエストされたリソースは見つかりませんでした\"\
-            ,\"status\":404,\"detail\":\"クイズが見つかりませんでした\"}"
+            ,\"status\":404,\"detail\":\"指定された件数分のクイズが見つかりません\"}"
+    quizNotEnoughCount:
+      description: クイズの取得件数が指定件数以下
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemResponse'
+          example: "{\"type\":\"about:blank\",\"title\":\"リクエストされたリソースは見つかりませんでした\"\
+            ,\"status\":404,\"detail\":\"指定された件数分のクイズが見つかりません\"}"
     requestQuizNotFound:
       description: リクエスト中のクイズが見つからない
       content:
@@ -604,14 +628,3 @@ components:
       description: 正常に更新できた
     deletedSuccessfully:
       description: 正常に削除できた
-  parameters:
-    quizId:
-      name: quizId
-      in: path
-      description: クイズID
-      required: true
-      style: simple
-      schema:
-        minimum: 1
-        type: integer
-        format: int64
