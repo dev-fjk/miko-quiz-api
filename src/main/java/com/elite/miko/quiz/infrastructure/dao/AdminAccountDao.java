@@ -15,6 +15,6 @@ public interface AdminAccountDao {
      * @param password  : パスワード
      * @return 件数
      */
-    @Select
+    @Select(queryTimeout = 5)
     int countByAccountIdAndPassword(String accountId, String password);
 }

@@ -2,10 +2,12 @@ package com.elite.miko.quiz.domain.repository;
 
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto.QuizUpdateDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
+import java.util.Set;
+import org.springframework.lang.NonNull;
 
 public interface QuizRepository {
 
@@ -37,6 +39,14 @@ public interface QuizRepository {
     FetchQuizResult fetchQuiz(int start, int count, QuizStatus status);
 
     /**
+     * クイズ一覧を取得し排他ロックを粉う
+     *
+     * @param quizIdSet : クイズID一覧
+     * @return クイズ取得結果
+     */
+    FetchQuizResult fetchByQuizIdSetForUpdate(@NonNull Set<Long> quizIdSet);
+
+    /**
      * クイズの追加を行う
      *
      * @param quizAddDto : クイズ追加Dto
@@ -44,7 +54,13 @@ public interface QuizRepository {
      */
     Quiz insertQuiz(QuizAddDto quizAddDto);
 
-    void updateQuiz(QuizUpdateListDto quizUpdateListDto);
+    /**
+     * クイズの更新を行う
+     *
+     * @param quizUpdateListDto : クイズ更新Dto
+     * @return 1件更新時はtrue
+     */
+    boolean updateQuiz(@NonNull QuizUpdateDto quizUpdateListDto);
 
     /**
      * クイズの削除を行う

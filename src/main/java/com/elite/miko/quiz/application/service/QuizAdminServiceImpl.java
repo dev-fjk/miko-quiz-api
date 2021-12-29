@@ -15,10 +15,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class QuizAdminServiceImpl implements QuizAdminService {
@@ -58,7 +60,7 @@ public class QuizAdminServiceImpl implements QuizAdminService {
      * @param quizAddDto : クイズ追加Dao
      */
     @Override
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class, timeout = 15)
     public void insertQuiz(QuizAddDto quizAddDto) {
 
         // 管理者側から追加する際は有効で登録
@@ -77,9 +79,39 @@ public class QuizAdminServiceImpl implements QuizAdminService {
      * @param quizUpdateListDto : 更新するクイズ情報一覧を保持したDto
      */
     @Override
+    @Transactional(rollbackFor = Throwable.class, timeout = 15)
     public void updateQuiz(QuizUpdateListDto quizUpdateListDto) {
-        System.out.println(quizUpdateListDto);
 
+        var requestQuizIdSet = quizUpdateListDto.getQuizList().stream()
+                .map(QuizUpdateListDto.QuizUpdateDto::getQuizId).collect(Collectors.toSet());
+
+        // リクエストで受領したクイズIDを持つレコードに対して悲観ロックを掛ける
+        var fetchQuizResult = quizRepository.fetchByQuizIdSetForUpdate(requestQuizIdSet);
+        if (CollectionUtils.isEmpty(fetchQuizResult.getQuizList())) {
+            throw new ResourceNotFoundException("更新対象のクイズが見つかりません");
+        }
+
+        // リクエストで受領したクイズ更新DtoのIDが実際にDBから取得したID一覧に含まれるIDかをチェックする
+        // DBに存在するIDを持つ更新情報のみを抽出したリストを作成する
+        var fetchQuizIdList = fetchQuizResult.getQuizList()
+                .stream().map(Quiz::getQuizId).collect(Collectors.toSet());
+
+        List<QuizUpdateListDto.QuizUpdateDto> updateDtoList = quizUpdateListDto.getQuizList()
+                .stream()
+                .filter(quizUpdateDto -> fetchQuizIdList.contains(quizUpdateDto.getQuizId()))
+                .collect(Collectors.toList());
+
+        // 更新処理を実行する
+        updateDtoList.forEach(quizUpdateDto -> {
+
+            boolean isQuizUpdate = quizRepository.updateQuiz(quizUpdateDto);
+            boolean isAnswerUpdate = answerRepository.updateAnswer(
+                    quizUpdateDto.getQuizId(), quizUpdateDto.getAnswer()
+            );
+            if (!isQuizUpdate || !isAnswerUpdate) {
+                throw new RepositoryControlException("クイズの更新に失敗しました クイズID: " + quizUpdateDto.getQuizId());
+            }
+        });
     }
 
     /**
@@ -88,7 +120,7 @@ public class QuizAdminServiceImpl implements QuizAdminService {
      * @param quizIdList : 削除対象のクイズのクイズIDリスト
      */
     @Override
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class, timeout = 15)
     public void deleteQuiz(List<Long> quizIdList) {
         answerRepository.deleteByQuizIdList(quizIdList);
         quizRepository.deleteByQuizIdList(quizIdList);

@@ -6,6 +6,7 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
+import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
 @Dao
@@ -18,7 +19,7 @@ public interface AnswerDao {
      * @param quizIdList : クイズIDのリスト
      * @return 回答一覧
      */
-    @Select
+    @Select(queryTimeout = 5)
     List<Answer> fetchByQuizIdList(List<Long> quizIdList);
 
     /**
@@ -27,8 +28,17 @@ public interface AnswerDao {
      * @param answer : 追加する回答情報
      * @return : 追加件数
      */
-    @Insert(excludeNull = true)
+    @Insert(excludeNull = true, queryTimeout = 5)
     int insert(Answer answer);
+
+    /**
+     * 回答の更新を行う
+     *
+     * @param answer : 追加する回答情報
+     * @return : 追加件数
+     */
+    @Update(queryTimeout = 5)
+    int update(Answer answer);
 
     /**
      * 回答の削除を行う
@@ -36,6 +46,6 @@ public interface AnswerDao {
      * @param quizIdList : 削除対象のクイズID一覧
      * @return 削除件数
      */
-    @Delete(sqlFile = true)
+    @Delete(sqlFile = true, queryTimeout = 5)
     int deleteByQuizIdList(List<Long> quizIdList);
 }

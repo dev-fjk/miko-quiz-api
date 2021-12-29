@@ -4,13 +4,14 @@ import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
-import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto;
+import com.elite.miko.quiz.domain.model.dto.QuizUpdateListDto.QuizUpdateDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.domain.repository.QuizRepository;
 import com.elite.miko.quiz.infrastructure.dao.QuizDao;
 import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -75,6 +76,20 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     /**
+     * クイズ一覧を取得し排他ロックを粉う
+     *
+     * @param quizIdSet : クイズID一覧
+     * @return クイズ取得結果
+     */
+    @Override
+    public FetchQuizResult fetchByQuizIdSetForUpdate(@NonNull Set<Long> quizIdSet) {
+        final var quizList = quizDao.fetchByQuizIdSetForUpdate(quizIdSet);
+        return FetchQuizResult.builder()
+                .quizList(quizList)
+                .build();
+    }
+
+    /**
      * クイズの追加を行う
      * IDが自動採番されたQuizのインスタンスを返却する
      *
@@ -95,9 +110,15 @@ public class QuizRepositoryImpl implements QuizRepository {
         return insertQuiz;
     }
 
+    /**
+     * クイズの更新を行う
+     *
+     * @param quizUpdateListDto : クイズ更新Dto
+     */
     @Override
-    public void updateQuiz(QuizUpdateListDto quizUpdateListDto) {
-
+    public boolean updateQuiz(@NonNull QuizUpdateDto quizUpdateListDto) {
+        final Quiz updateQuiz = modelMapper.map(quizUpdateListDto, Quiz.class);
+        return quizDao.update(updateQuiz) == 1;
     }
 
     /**

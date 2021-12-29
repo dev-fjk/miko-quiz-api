@@ -55,7 +55,7 @@ public class QuizClientServiceImpl implements QuizClientService {
      * @param quizAddDto : クイズ追加DTO
      */
     @Override
-    @Transactional(rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class, timeout = 15)
     public void quizRequest(QuizAddDto quizAddDto) {
 
         // client側から登録する際はリクエストで固定する
