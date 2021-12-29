@@ -13,6 +13,11 @@ public interface QuizAdminService {
 
     Object fetchRequestQuiz(int start, int count);
 
+    /**
+     * クイズの追加を行う
+     *
+     * @param quizAddDto : クイズ追加Dao
+     */
     void insertQuiz(QuizAddDto quizAddDto);
 
     void updateQuiz(QuizUpdateDto quizUpdateDto);

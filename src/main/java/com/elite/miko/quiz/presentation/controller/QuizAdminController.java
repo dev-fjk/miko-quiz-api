@@ -1,6 +1,8 @@
 package com.elite.miko.quiz.presentation.controller;
 
 import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
+import com.elite.miko.quiz.domain.service.QuizAdminService;
 import com.elite.miko.quiz.presentation.model.form.QuizAddRequestForm;
 import com.elite.miko.quiz.presentation.model.form.QuizUpdateRequestForm;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
@@ -15,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +37,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = QuizAdminController.BASE_PATH)
 @RequiredArgsConstructor
-@Tag(name = QuizAdminController.BASE_PATH,description = "クイズ管理用のAPI")
+@Tag(name = QuizAdminController.BASE_PATH, description = "クイズ管理用のAPI")
 public class QuizAdminController {
 
     public static final String BASE_PATH = "/miko/v1/admin/";
+
+    private final QuizAdminService adminService;
+    private final ModelMapper modelMapper;
 
     @GetMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.OK)
@@ -83,6 +89,12 @@ public class QuizAdminController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * クイズの追加を行う
+     *
+     * @param quizAddRequestForm : クイズ追加Form
+     * @return 追加成功時は201を返却
+     */
     @PostMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "クイズの追加を行う")
@@ -98,6 +110,7 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> addQuiz(@Validated @RequestBody QuizAddRequestForm quizAddRequestForm) {
+        adminService.insertQuiz(modelMapper.map(quizAddRequestForm, QuizAddDto.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
