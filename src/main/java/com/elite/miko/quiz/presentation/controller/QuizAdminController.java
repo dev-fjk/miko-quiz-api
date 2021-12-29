@@ -138,7 +138,7 @@ public class QuizAdminController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping(path = "/quizzes/")
+    @PutMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの更新を行う")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
