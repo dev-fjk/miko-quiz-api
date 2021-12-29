@@ -7,7 +7,7 @@ import com.elite.miko.quiz.presentation.converter.ResponseConverter;
 import com.elite.miko.quiz.presentation.model.form.QuizAddForm;
 import com.elite.miko.quiz.presentation.model.form.QuizUpdateForm;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
-import com.elite.miko.quiz.presentation.validator.QuizIdListValidator;
+import com.elite.miko.quiz.presentation.validator.QuizValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -50,7 +50,7 @@ public class QuizAdminController {
     private final QuizAdminService adminService;
 
     private final ResponseConverter responseConverter;
-    private final QuizIdListValidator quizIdListValidator;
+    private final QuizValidator quizValidator;
     private final ModelMapper modelMapper;
 
     /**
@@ -185,7 +185,7 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> deleteQuiz(@RequestParam(name = "quizIdList") @NotNull List<Long> quizIdList) {
-        quizIdListValidator.validate(quizIdList);
+        quizValidator.validate(quizIdList);
         adminService.deleteQuiz(quizIdList);
         return ResponseEntity.noContent().build();
     }

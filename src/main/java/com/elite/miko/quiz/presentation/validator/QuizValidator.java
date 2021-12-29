@@ -7,7 +7,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuizIdListValidator {
+public class QuizValidator {
 
     /**
      * クイズID一覧の入力チェック用の自作バリデータ
