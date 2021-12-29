@@ -1,6 +1,8 @@
 package com.elite.miko.quiz.infrastructure.model.entity;
 
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
+import com.elite.miko.quiz.infrastructure.model.entity.listener.AnswerEntityListener;
+import com.elite.miko.quiz.infrastructure.model.entity.listener.QuizEntityListener;
 import java.time.LocalDateTime;
 import lombok.Data;
 import org.seasar.doma.Column;
@@ -14,7 +16,7 @@ import org.seasar.doma.Table;
  * クイズテーブル Entity
  */
 @Data
-@Entity
+@Entity(listener = QuizEntityListener.class)
 @Table(name = "quiz")
 public class Quiz {
 
