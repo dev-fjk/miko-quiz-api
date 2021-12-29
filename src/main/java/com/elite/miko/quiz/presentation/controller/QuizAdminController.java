@@ -156,13 +156,13 @@ public class QuizAdminController {
     }
 
     @DeleteMapping(path = "/quizzes/{quizId}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの削除を行う")
     @Parameters({
             @Parameter(name = "quizId", ref = OpenApiConstant.QUIZ_ID)
     })
     @ApiResponses({
-            @ApiResponse(responseCode = "201", ref = OpenApiConstant.INSERTED_SUCCESS),
+            @ApiResponse(responseCode = "204", ref = OpenApiConstant.DELETED_SUCCESS),
             @ApiResponse(responseCode = "400", ref = OpenApiConstant.BAD_REQUEST),
             @ApiResponse(responseCode = "401", ref = OpenApiConstant.UNAUTHORIZED),
             @ApiResponse(responseCode = "403", ref = OpenApiConstant.FORBIDDEN),
