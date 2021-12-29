@@ -91,17 +91,16 @@ public class QuizAdminServiceImpl implements QuizAdminService {
             throw new ResourceNotFoundException("更新対象のクイズが見つかりません");
         }
 
-        // リクエストで受領したクイズ更新DtoのIDが実際にDBから取得したID一覧に含まれるIDかをチェックする
-        // DBに存在するIDを持つ更新情報のみを抽出したリストを作成する
-        var fetchQuizIdList = fetchQuizResult.getQuizList()
+        // リクエストで受領したクイズ更新DtoのIDが実際にDBから取得したID一覧に含まれるIDかどうかチェックを行い
+        // DBに存在するIDを持つDtoのみを抽出した上で更新処理を実行する
+        var fetchQuizIdSet = fetchQuizResult.getQuizList()
                 .stream().map(Quiz::getQuizId).collect(Collectors.toSet());
 
         List<QuizUpdateListDto.QuizUpdateDto> updateDtoList = quizUpdateListDto.getQuizList()
                 .stream()
-                .filter(quizUpdateDto -> fetchQuizIdList.contains(quizUpdateDto.getQuizId()))
+                .filter(quizUpdateDto -> fetchQuizIdSet.contains(quizUpdateDto.getQuizId()))
                 .collect(Collectors.toList());
 
-        // 更新処理を実行する
         updateDtoList.forEach(quizUpdateDto -> {
 
             boolean isQuizUpdate = quizRepository.updateQuiz(quizUpdateDto);
