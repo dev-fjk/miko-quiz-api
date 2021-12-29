@@ -32,7 +32,7 @@ public class QuizRepositoryImpl implements QuizRepository {
      */
     @Override
     public FetchQuizResult fetchRandomQuiz(int count) {
-        final var quizList = quizDao.fetchQuizRandom(count);
+        final var quizList = quizDao.fetchQuizRandom(count, QuizStatus.ENABLED.getValue());
         return FetchQuizResult.builder()
                 .quizList(quizList)
                 .build();

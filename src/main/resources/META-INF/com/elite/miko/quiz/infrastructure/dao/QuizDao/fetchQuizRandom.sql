@@ -10,7 +10,7 @@ from
      from
          quiz
      where
-         status = 'enabled'
+         status = /* status */'1'
      order by
          random()
      limit

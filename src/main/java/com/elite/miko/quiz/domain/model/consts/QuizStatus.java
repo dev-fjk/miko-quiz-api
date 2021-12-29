@@ -11,17 +11,15 @@ import org.seasar.doma.Domain;
 @Getter
 @Domain(valueType = String.class, factoryMethod = "of")
 @Schema(enumAsRef = true, description = "クイズの状態: \n"
-        + "* `enabled` - 有効\n"
-        + "* `request` - 追加リクエスト中\n"
-        + "* `disabled` - 無効\n"
-        + "* `ng` - チェックNG\n"
+        + "* `1` - 有効\n"
+        + "* `2` - 追加リクエスト中\n"
+        + "* `9` - 無効\n"
 )
 public enum QuizStatus {
 
-    ENABLED("enabled", "有効"),
-    REQUEST("request", "追加リクエスト中"),
-    DISABLED("disabled", "無効"),
-    NG("ng", "チェックNG"),
+    ENABLED("1", "有効"),
+    REQUEST("2", "追加リクエスト中"),
+    DISABLED("9", "無効"),
     INVALID("invalid", "異常値");
 
     private final String value;

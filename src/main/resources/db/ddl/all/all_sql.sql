@@ -2,7 +2,7 @@ drop table if exists admin_account;
 create table admin_account
 (
     account_id integer primary key,
-    password   varchar(64) not null,
+    password   varchar(64)                            not null,
     created_at timestamp(3) default current_timestamp not null,
     updated_at timestamp(3) default current_timestamp not null
 );
@@ -11,27 +11,25 @@ comment on column admin_account.password is 'ハッシュ化済みパスワー�
 comment on column admin_account.created_at is 'レコード作成日';
 comment on column admin_account.updated_at is 'レコード更新日';
 
-CREATE TYPE quiz_status AS ENUM ('enabled','request','disabled','ng');
-
 drop table if exists quiz;
 create table quiz
 (
     quiz_id    integer generated always as identity primary key,
     question   varchar(200)                           not null,
     commentary varchar(200)                           not null,
-    status     quiz_status                            not null,
+    status     varchar(1)                             not null,
     created_at timestamp(3) default current_timestamp not null,
-    updated_at  timestamp(3) default current_timestamp not null
+    updated_at timestamp(3) default current_timestamp not null
 );
 
 comment on column quiz.quiz_id is 'クイズID';
 comment on column quiz.question is '問題文';
-comment on column quiz.commentary is '解説文';
+comment on column quiz.status is 'クイズステータス 1:有効, 2:リクエスト中, 9:無効';
 comment on column quiz.status is 'クイズステータス';
 comment on column quiz.created_at is 'レコード作成日';
 comment on column quiz.updated_at is 'レコード更新日';
 
-CREATE INDEX idx_quiz_quiz_id ON quiz(quiz_id);
+CREATE INDEX idx_quiz_quiz_id ON quiz (quiz_id);
 CREATE INDEX idx_quiz_quiz_id_status ON quiz (quiz_id, status);
 
 drop table if exists answer;
