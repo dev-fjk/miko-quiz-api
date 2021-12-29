@@ -6,6 +6,7 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.jdbc.SelectOptions;
 
 @Dao
 @ConfigAutowireable
@@ -19,6 +20,17 @@ public interface QuizDao {
      */
     @Select
     List<Quiz> fetchQuizRandom(int count);
+
+    /**
+     * クイズ一覧の取得を行う
+     * quizStatusが設定されている場合はstatusを抽出条件に追加する
+     *
+     * @param options    : 検索オプション
+     * @param quizStatus : クイズのステータス
+     * @return 取得したクイズ一覧
+     */
+    @Select
+    List<Quiz> fetchByIfPresentStatus(SelectOptions options, String quizStatus);
 
     /**
      * クイズの追加を行う

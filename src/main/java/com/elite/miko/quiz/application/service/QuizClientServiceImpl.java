@@ -33,7 +33,8 @@ public class QuizClientServiceImpl implements QuizClientService {
     @Override
     public QuizQuestionResult fetchQuiz(int count) {
 
-        final List<Quiz> quizList = quizRepository.fetchRandomQuiz(count);
+        final var fetchQuizResult = quizRepository.fetchRandomQuiz(count);
+        final var quizList = fetchQuizResult.getQuizList();
         if (quizList.size() < count) {
             throw new QuizNotEnoughCountException("指定された件数分のクイズが見つかりません");
         }

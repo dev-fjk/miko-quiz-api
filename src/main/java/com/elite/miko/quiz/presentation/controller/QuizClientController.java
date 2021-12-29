@@ -71,6 +71,12 @@ public class QuizClientController {
         return new ResponseEntity<>(responseConverter.convert(result), HttpStatus.OK);
     }
 
+    /**
+     * クイズの追加リクエストを行う
+     *
+     * @param quizAddRequestForm : クイズ追加リクエスト
+     * @return 追加成功時は201が返却
+     */
     @PostMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "クイズの追加リクエストを行う")
