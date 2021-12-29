@@ -37,5 +37,10 @@ public interface QuizAdminService {
 
     void updateQuiz(QuizUpdateDto quizUpdateDto);
 
+    /**
+     * クイズの削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
     void deleteQuiz(List<Long> quizIdList);
 }

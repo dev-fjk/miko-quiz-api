@@ -72,13 +72,21 @@ public class QuizAdminServiceImpl implements QuizAdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void updateQuiz(QuizUpdateDto quizUpdateDto) {
 
     }
 
+    /**
+     * クイズの削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void deleteQuiz(List<Long> quizIdList) {
-
+        answerRepository.deleteByQuizIdList(quizIdList);
+        quizRepository.deleteByQuizIdList(quizIdList);
     }
 
     /**

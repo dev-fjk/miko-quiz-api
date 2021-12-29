@@ -41,4 +41,14 @@ public class AnswerRepositoryImpl implements AnswerRepository {
         insertAnswer.setQuizId(quizId);
         return answerDao.insert(insertAnswer) == 1;
     }
+
+    /**
+     * 回答の削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
+    @Override
+    public void deleteByQuizIdList(@NonNull List<Long> quizIdList) {
+        answerDao.deleteByQuizIdList(quizIdList);
+    }
 }

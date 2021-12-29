@@ -10,12 +10,15 @@ import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import org.modelmapper.ModelMapper;
@@ -155,11 +158,20 @@ public class QuizAdminController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/quizzes/{quizId}")
+    /**
+     * 指定されたクイズIDのクイズと回答の削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズIDのリスト　クエリパラメータで設定
+     * @return 削除成功時は204を返却
+     */
+    @DeleteMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの削除を行う")
     @Parameters({
-            @Parameter(name = "quizId", ref = OpenApiConstant.QUIZ_ID)
+            @Parameter(name = "quizIdList", in = ParameterIn.QUERY,
+                    description = "削除対象のクイズIDリストカンマ区切りで設定する",
+                    schema = @Schema(type = "array", format = "int64")
+            )
     })
     @ApiResponses({
             @ApiResponse(responseCode = "204", ref = OpenApiConstant.DELETED_SUCCESS),
@@ -169,7 +181,9 @@ public class QuizAdminController {
             @ApiResponse(responseCode = "404", ref = OpenApiConstant.QUIZ_NOT_FOUND),
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
-    public ResponseEntity<?> deleteQuiz(@PathVariable("quizId") @Min(1) long quizId) {
+    public ResponseEntity<?> deleteQuiz(@RequestParam(name = "quizIdList") @NotNull List<Long> quizIdList) {
+        // 異常な数値が入っていても空振りするだけなのでバリデーションは厳密なバリデーションは行わない
+        adminService.deleteQuiz(quizIdList);
         return ResponseEntity.noContent().build();
     }
 }

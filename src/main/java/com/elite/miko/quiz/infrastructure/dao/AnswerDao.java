@@ -3,6 +3,7 @@ package com.elite.miko.quiz.infrastructure.dao;
 import com.elite.miko.quiz.infrastructure.model.entity.Answer;
 import java.util.List;
 import org.seasar.doma.Dao;
+import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
@@ -28,4 +29,13 @@ public interface AnswerDao {
      */
     @Insert(excludeNull = true)
     int insert(Answer answer);
+
+    /**
+     * 回答の削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズID一覧
+     * @return 削除件数
+     */
+    @Delete(sqlFile = true)
+    int deleteByQuizIdList(List<Long> quizIdList);
 }

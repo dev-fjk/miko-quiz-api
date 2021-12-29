@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.infrastructure.repository;
 
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
+import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.seasar.doma.jdbc.SelectOptions;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Slf4j
@@ -98,8 +100,16 @@ public class QuizRepositoryImpl implements QuizRepository {
 
     }
 
+    /**
+     * クイズの削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
     @Override
-    public void deleteQuiz(List<Long> quizIdList) {
-
+    public void deleteByQuizIdList(@NonNull List<Long> quizIdList) {
+        int deletedCount = quizDao.deleteByQuizIdList(quizIdList);
+        if (deletedCount == 0) {
+            throw new ResourceNotFoundException("削除対象のクイズが見つかりません");
+        }
     }
 }
