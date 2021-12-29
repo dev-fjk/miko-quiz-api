@@ -4,6 +4,7 @@ import com.elite.miko.quiz.application.exception.LoginFailureException;
 import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
+import com.elite.miko.quiz.application.exception.ValidationException;
 import com.elite.miko.quiz.presentation.converter.ProblemConverter;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import java.nio.file.AccessDeniedException;
@@ -44,6 +45,17 @@ public class QuizExceptionHandler {
      */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ProblemResponse> handleConstraintViolationException(ConstraintViolationException exception) {
+        return this.errorResponses(HttpStatus.BAD_REQUEST, problemConverter.convert(exception));
+    }
+
+    /**
+     * リクエストオブジェクトの独自バリデーションエラー
+     *
+     * @param exception {@link ValidationException}
+     * @return エラーレスポンス
+     */
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ProblemResponse> handleValidationException(ValidationException exception) {
         return this.errorResponses(HttpStatus.BAD_REQUEST, problemConverter.convert(exception));
     }
 

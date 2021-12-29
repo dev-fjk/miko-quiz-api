@@ -4,6 +4,7 @@ import com.elite.miko.quiz.application.exception.LoginFailureException;
 import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException;
 import com.elite.miko.quiz.application.exception.RepositoryControlException;
 import com.elite.miko.quiz.application.exception.ResourceNotFoundException;
+import com.elite.miko.quiz.application.exception.ValidationException;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
@@ -47,6 +48,20 @@ public class ProblemConverter {
                 .title("リクエストされたパラメータは正しくありません")
                 .status(HttpStatus.BAD_REQUEST.value())
                 .detail(detail(exception.getConstraintViolations()))
+                .build();
+    }
+
+    /**
+     * リクエスト時のValidationエラーを返却する
+     *
+     * @param exception {@link ValidationException}
+     * @return {@link ProblemResponse}
+     */
+    public ProblemResponse convert(ValidationException exception) {
+        return ProblemResponse.builder()
+                .title("リクエストされたパラメータは正しくありません")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .detail(exception.getMessage())
                 .build();
     }
 
