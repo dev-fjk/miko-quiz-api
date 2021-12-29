@@ -3,6 +3,7 @@ package com.elite.miko.quiz.presentation.controller;
 import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.service.QuizAdminService;
+import com.elite.miko.quiz.presentation.converter.ResponseConverter;
 import com.elite.miko.quiz.presentation.model.form.QuizAddRequestForm;
 import com.elite.miko.quiz.presentation.model.form.QuizUpdateRequestForm;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
@@ -15,8 +16,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,8 +44,16 @@ public class QuizAdminController {
     public static final String BASE_PATH = "/miko/v1/admin/";
 
     private final QuizAdminService adminService;
+    private final ResponseConverter responseConverter;
     private final ModelMapper modelMapper;
 
+    /**
+     * クイズ一覧の取得を行う
+     *
+     * @param start : 取得開始位置
+     * @param count : 取得件数
+     * @return 取得結果
+     */
     @GetMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "クイズの一覧を取得する(管理用)")
@@ -63,10 +72,18 @@ public class QuizAdminController {
     })
     public ResponseEntity<?> fetchQuiz(
             @RequestParam(name = "start", required = false, defaultValue = "1") @Min(1) int start,
-            @RequestParam(name = "count", required = false, defaultValue = "20") @Size(max = 50) int count) {
-        return ResponseEntity.ok().build();
+            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 0, max = 50) int count) {
+        var quizManageResult = adminService.fetchQuiz(start - 1, count);
+        return new ResponseEntity<>(responseConverter.convert(quizManageResult), HttpStatus.OK);
     }
 
+    /**
+     * リクエスト中のクイズ一覧の取得を行う
+     *
+     * @param start : 取得開始位置
+     * @param count : 取得件数
+     * @return 取得結果
+     */
     @GetMapping(path = "/quizzes/requests")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "リクエスト中のクイズ一覧を取得する")
@@ -85,8 +102,9 @@ public class QuizAdminController {
     })
     public ResponseEntity<?> fetchQuizRequest(
             @RequestParam(name = "start", required = false, defaultValue = "1") @Min(1) int start,
-            @RequestParam(name = "count", required = false, defaultValue = "20") @Size(max = 50) int count) {
-        return ResponseEntity.ok().build();
+            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 0, max = 50) int count) {
+        var quizManageResult = adminService.fetchRequestQuiz(start - 1, count);
+        return new ResponseEntity<>(responseConverter.convert(quizManageResult), HttpStatus.OK);
     }
 
     /**

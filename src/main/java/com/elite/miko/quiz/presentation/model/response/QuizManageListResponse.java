@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
  * クイズ問題一覧を返却するレスポンス
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 @Schema(description = "クイズ管理用情報取得結果")
 public class QuizManageListResponse {
 
@@ -48,7 +47,7 @@ public class QuizManageListResponse {
         private String quizStatus;
 
         @Schema(description = "クイズの管理用回答情報", required = true)
-        private QuizManageAnswer quizManageAnswer;
+        private QuizManageAnswer answer;
 
         @Data
         @Builder

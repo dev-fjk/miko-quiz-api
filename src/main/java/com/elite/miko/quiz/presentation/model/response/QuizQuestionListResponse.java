@@ -40,7 +40,7 @@ public class QuizQuestionListResponse {
         private String commentary;
 
         @Schema(description = "クイズの回答情報", required = true)
-        private QuizAnswer quizAnswer;
+        private QuizAnswer answer;
 
         @Data
         @Builder

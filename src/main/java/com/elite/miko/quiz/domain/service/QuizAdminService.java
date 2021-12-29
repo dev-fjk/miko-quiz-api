@@ -2,6 +2,7 @@ package com.elite.miko.quiz.domain.service;
 
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
+import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import java.util.List;
 
 /**
@@ -9,9 +10,23 @@ import java.util.List;
  */
 public interface QuizAdminService {
 
-    Object fetchQuiz(int start, int count);
+    /**
+     * クイズ一覧の取得を行う
+     *
+     * @param start : offset 取得開始
+     * @param count : limit 取得件数
+     * @return 取得結果
+     */
+    QuizManageResult fetchQuiz(int start, int count);
 
-    Object fetchRequestQuiz(int start, int count);
+    /**
+     * リクエスト中のクイズ一覧の取得を行う
+     *
+     * @param start : offset 取得開始
+     * @param count : limit 取得件数
+     * @return 取得結果
+     */
+    QuizManageResult fetchRequestQuiz(int start, int count);
 
     /**
      * クイズの追加を行う

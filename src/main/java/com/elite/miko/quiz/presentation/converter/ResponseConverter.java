@@ -31,7 +31,13 @@ public class ResponseConverter {
      * @return {@link QuizManageListResponse}
      */
     public QuizManageListResponse convert(@NonNull QuizManageResult result) {
-        // TODO 変換処理の盛り込み
-        return new QuizManageListResponse();
+        var start = result.getStart() + 1; // 内部で一度-1しているので元々貰った値に戻す
+        var quizAll = quizConverter.convert(result);
+        return QuizManageListResponse.builder()
+                .total(result.getTotal())
+                .start(start)
+                .count(result.getCount())
+                .quizList(quizAll)
+                .build();
     }
 }

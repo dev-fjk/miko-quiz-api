@@ -1,19 +1,26 @@
 package com.elite.miko.quiz.presentation.converter;
 
+import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.infrastructure.model.entity.Answer;
+import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse.QuizAll;
 import com.elite.miko.quiz.presentation.model.response.QuizQuestionListResponse.QuizQuestion;
 import java.util.List;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class QuizConverter {
 
+    private final ModelMapper modelMapper;
+
     /**
-     * QuizQuestionResultからレスポンスへの変換を行う
+     * QuizQuestionResultからレスポンスに設定するクイズ一覧への変換を行う
      *
      * @param result : クイズ取得結果
      * @return クイズ一覧
@@ -29,26 +36,32 @@ public class QuizConverter {
                     .quizId(quiz.getQuizId())
                     .question(quiz.getQuestion())
                     .commentary(quiz.getCommentary())
-                    .quizAnswer(this.convertAnswerToQuizAnswer(tmpAnswer))
+                    .answer(modelMapper.map(tmpAnswer, QuizQuestion.QuizAnswer.class))
                     .build();
         }).collect(Collectors.toList());
     }
 
     /**
-     * AnswerからQuizAnswerへ変換する
+     * QuizManageResultからレスポンスに設定するクイズ一覧への変換を行う
      *
-     * @param answer : DBから取得した回答情報
-     * @return レスポンス用の回答情報
+     * @param result : クイズ取得結果
+     * @return クイズ一覧
      */
-    private QuizQuestion.QuizAnswer convertAnswerToQuizAnswer(final Answer answer) {
-        return QuizQuestion.QuizAnswer.builder()
-                .answerId(answer.getAnswerId())
-                .answer1(answer.getAnswer1())
-                .answer2(answer.getAnswer2())
-                .answer3(answer.getAnswer3())
-                .answer4(answer.getAnswer4())
-                .correctNumber(answer.getCorrectNumber())
-                .build();
+    public List<QuizAll> convert(QuizManageResult result) {
+
+        // クイズIDと回答のMapを作成する
+        final var quizIdPairAnswerMap = this.createQuizIdPairAnswerMap(result.getAnswerList());
+
+        return result.getQuizList().stream().map(quiz -> {
+            final Answer tmpAnswer = quizIdPairAnswerMap.get(quiz.getQuizId());
+            return QuizAll.builder()
+                    .quizId(quiz.getQuizId())
+                    .question(quiz.getQuestion())
+                    .commentary(quiz.getCommentary())
+                    .quizStatus(quiz.getQuizStatus().getDisplayName())
+                    .answer(modelMapper.map(tmpAnswer, QuizAll.QuizManageAnswer.class))
+                    .build();
+        }).collect(Collectors.toList());
     }
 
     /**
