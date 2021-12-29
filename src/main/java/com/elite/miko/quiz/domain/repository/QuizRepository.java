@@ -4,7 +4,6 @@ import com.elite.miko.quiz.domain.model.consts.QuizStatus;
 import com.elite.miko.quiz.domain.model.dto.QuizAddDto;
 import com.elite.miko.quiz.domain.model.dto.QuizUpdateDto;
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
-import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
 
@@ -47,5 +46,10 @@ public interface QuizRepository {
 
     void updateQuiz(QuizUpdateDto quizUpdateDto);
 
-    void deleteQuiz(List<Long> quizIdList);
+    /**
+     * クイズの削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
+    void deleteByQuizIdList(List<Long> quizIdList);
 }

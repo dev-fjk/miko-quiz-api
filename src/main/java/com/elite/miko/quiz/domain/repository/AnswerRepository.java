@@ -22,4 +22,11 @@ public interface AnswerRepository {
      * @return 更新成功の場合trueを返却
      */
     boolean insertAnswer(long quizId, AnswerAddDto answerAddDto);
+
+    /**
+     * 回答の削除を行う
+     *
+     * @param quizIdList : 削除対象のクイズのクイズIDリスト
+     */
+    void deleteByQuizIdList(List<Long> quizIdList);
 }

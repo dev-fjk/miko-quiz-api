@@ -32,7 +32,6 @@ public class OpenApiConfig {
     public OpenApiCustomiser openApiCustomiser(ObjectMapper objectMapper) {
         return openApi -> {
             addSchemas(openApi.getComponents());
-            addParameters(openApi.getComponents());
             addResponses(openApi.getComponents(), objectMapper);
         };
     }
@@ -45,26 +44,6 @@ public class OpenApiConfig {
     private void addSchemas(Components components) {
         var schemas = ModelConverters.getInstance().read(ProblemResponse.class);
         schemas.forEach(components::addSchemas);
-    }
-
-    /**
-     * パラメータ定義の追加を行う
-     *
-     * @param components : コンポーネント
-     */
-    private void addParameters(Components components) {
-        var quizIdSchema = new Schema<Long>()
-                .type("integer")
-                .format("int64")
-                .minimum(new BigDecimal(1));
-
-        components.addParameters(OpenApiConstant.QUIZ_ID, new Parameter()
-                .name("quizId")
-                .description("クイズID")
-                .in("path")
-                .style(Parameter.StyleEnum.SIMPLE)
-                .schema(quizIdSchema)
-                .required(true));
     }
 
     /**
