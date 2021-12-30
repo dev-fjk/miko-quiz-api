@@ -15,7 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class QuizAuthorizationInterceptor implements HandlerInterceptor {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String X_QUIZ_AUTHORIZATION_HEADER = "X-quiz-authorization-header";
 
     /**
      * Controllerの事前処理を行う
