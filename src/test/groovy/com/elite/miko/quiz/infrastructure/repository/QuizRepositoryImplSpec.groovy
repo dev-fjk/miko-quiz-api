@@ -72,9 +72,7 @@ class QuizRepositoryImplSpec extends Specification {
 
     def "正常系_fetchByQuizIdSetForUpdate"() {
         given:
-        Set<Long> quizIdSet = (1L..10L).collect() {
-            return it
-        }
+        Set<Long> quizIdSet = [1L, 2L, 3L]
         def quizList = (1..10).collect() {
             return new Quiz()
         }
@@ -158,9 +156,7 @@ class QuizRepositoryImplSpec extends Specification {
     }
 
     def "正常系_deleteByQuizIdList"() {
-        def quizIdList = (1L..3L).collect() {
-            return it
-        }
+        def quizIdList = [1L, 2L, 3L]
 
         when:
         target.deleteByQuizIdList(quizIdList)
@@ -171,9 +167,7 @@ class QuizRepositoryImplSpec extends Specification {
     }
 
     def "異常系_deleteByQuizIdList_削除件数が0件"() {
-        def quizIdList = (1L..3L).collect() {
-            return it
-        }
+        def quizIdList = [1L, 2L, 3L]
 
         when:
         target.deleteByQuizIdList(quizIdList)

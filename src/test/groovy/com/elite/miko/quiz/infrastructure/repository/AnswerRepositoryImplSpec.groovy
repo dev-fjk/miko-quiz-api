@@ -21,9 +21,7 @@ class AnswerRepositoryImplSpec extends Specification {
 
     def "正常系_fetchByQuizIdList"() {
         given:
-        def quizIdList = (1L..3L).collect() {
-            return it
-        }
+        def quizIdList = [1L, 2L, 3L]
         def answerList = (1L..3L).collect() {
             return new Answer()
         }
@@ -109,9 +107,7 @@ class AnswerRepositoryImplSpec extends Specification {
 
     def "正常系_deleteByQuizIdList"() {
         given:
-        def quizIdList = (1L..3L).collect() {
-            return it
-        }
+        def quizIdList = [1L, 2L, 3L]
         when:
         target.deleteByQuizIdList(quizIdList)
         then:

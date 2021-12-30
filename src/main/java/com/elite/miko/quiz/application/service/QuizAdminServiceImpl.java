@@ -38,7 +38,7 @@ public class QuizAdminServiceImpl implements QuizAdminService {
     @Override
     public QuizManageResult fetchQuiz(int start, int count) {
         var fetchQuizResult = quizRepository.fetchQuiz(start, count);
-        return this.commonManageQuizFetch(fetchQuizResult, start);
+        return this.commonFetchManageQuiz(fetchQuizResult, start);
     }
 
     /**
@@ -51,7 +51,7 @@ public class QuizAdminServiceImpl implements QuizAdminService {
     @Override
     public QuizManageResult fetchRequestQuiz(int start, int count) {
         var fetchQuizResult = quizRepository.fetchQuiz(start, count, QuizStatus.REQUEST);
-        return this.commonManageQuizFetch(fetchQuizResult, start);
+        return this.commonFetchManageQuiz(fetchQuizResult, start);
     }
 
     /**
@@ -132,7 +132,7 @@ public class QuizAdminServiceImpl implements QuizAdminService {
      * @param start           : 取得開始位置
      * @return {@link QuizManageResult}
      */
-    private QuizManageResult commonManageQuizFetch(FetchQuizResult fetchQuizResult, int start) {
+    private QuizManageResult commonFetchManageQuiz(FetchQuizResult fetchQuizResult, int start) {
 
         if (fetchQuizResult.getTotal() == 0) {
             throw new ResourceNotFoundException("クイズが見つかりませんでした");
