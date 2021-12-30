@@ -30,15 +30,12 @@ public class WebTokenUtil {
     /**
      * JsonWebTokenの生成を行い返却する
      *
-     * @param id : トークンの生成に利用する管理者ID
      * @return 生成したToken
      */
-    public String generateToken(final String id) {
+    public String generateToken() {
 
+        final String subject = tokenConfig.getSubject();
         final String tokenKey = tokenConfig.getTokenKey();
-        if (Objects.isNull(tokenKey)) {
-            throw new IllegalStateException("Tokenのキー値が読み取れません");
-        }
 
         // Tokenの有効期限を設定
         // 現在日時 + TOKEN_ENABLED_MINUTES分の日時を指定
@@ -46,7 +43,7 @@ public class WebTokenUtil {
         log.info("トークン有効期限 : {}", tokenExpirationDateTime);
 
         return Jwts.builder()
-                .setSubject(id)
+                .setSubject(subject)
                 .setExpiration(this.toDate(tokenExpirationDateTime))
                 .signWith(Keys.hmacShaKeyFor(tokenKey.getBytes(StandardCharsets.UTF_8)))
                 .compact();
@@ -54,7 +51,8 @@ public class WebTokenUtil {
 
     /**
      * Tokenの解析を行う
-     * @return PayloadのSubjectの値
+     *
+     * @return JWTの生成に使用したSubjectの値
      */
     public String analysisFromToken(final String token) {
 

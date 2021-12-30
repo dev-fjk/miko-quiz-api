@@ -31,6 +31,9 @@ extension:
     # パスワードハッシュ化の際に使用する文字列
     salt: ${salt}
   token:
+    # JWTの解析結果として返却される値
+    # 今回は管理者1ユーザーしか使用しないため固定値
+    subject: ${subject}
     # JsonWebTokenのキーに使用する値
     tokenKey: ${tokenKey}
 

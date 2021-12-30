@@ -11,5 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "extension.token")
 public class TokenConfig {
+    private String subject;
     private String tokenKey;
 }
