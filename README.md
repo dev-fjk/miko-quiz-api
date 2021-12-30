@@ -44,7 +44,7 @@ curl -X 'POST' \
 curl -X 'GET' \
 'http://localhost:8080/miko/v1/admin/quizzes?start=1&count=20' \
 -H 'accept: application/json' \
--H 'x-quiz-authorization-header: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdWJqZWN0IiwiZXhwIjoxNjQwODU2NDc0fQ.pHrBNR-Vlchiv2jQUZFNO4gQCLyYbFZHAJGBQGsrTLeRmQD1GvFQxgQhAtjdrLvPizKO-VBo_cfsooyiR8suuw'
+-H 'x-quiz-authorization-header: ※ここにログインAPIのレスポンスに設定されたToken値を設定
 ~~~
 
 ## パッケージ構成
