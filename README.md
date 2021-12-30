@@ -20,6 +20,38 @@
 ※ git hub actionsを入れた後はmasterマージ時に自動で最新化されるようにしたい
 ~~~
 
+## 認証周りの設定
+管理者ユーザー用のAPIには Authorization Headerでの認証処理を入れている関係で普通に叩くと403エラーとなる<br>
+ローカルの開発時は以下の手順を行う
+
+- 認証自体をOFFにする場合
+    - spring.profile.activeに noauthを追加する
+~~~
+  -Dspring.profiles.active = local,noauth
+  ※ IntelliJの場合は実行構成の 有効なプロファイル欄に記載すればOK
+~~~
+
+- 認証を行う場合(local)
+    - ① Swagger UIからサンプルの値そのままでログインAPIを叩く
+    - ② レスポンスの x-quiz-authorization-header の値をコピーして 管理用APIの x-quiz-authorization-headerに設定する
+~~~
+①ログインAPI向けのリクエスト
+curl -X 'POST' \
+  'http://localhost:8080/miko/v1/login/' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "accountId": "root",
+  "password": "password"
+}'
+
+②管理者API向けのリクエスト例 ※x-quiz-authorization-headerにはログインAPIのレスポンスに設定された値を設定
+curl -X 'GET' \
+'http://localhost:8080/miko/v1/admin/quizzes?start=1&count=20' \
+-H 'accept: application/json' \
+-H 'x-quiz-authorization-header: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdWJqZWN0IiwiZXhwIjoxNjQwODU2NDc0fQ.pHrBNR-Vlchiv2jQUZFNO4gQCLyYbFZHAJGBQGsrTLeRmQD1GvFQxgQhAtjdrLvPizKO-VBo_cfsooyiR8suuw'
+~~~
+
 ## パッケージ構成
 | dir1 | dir2  | dir3           | dir4       | dir5       | description
 |----  |----   |----            |----        |----        | ----
