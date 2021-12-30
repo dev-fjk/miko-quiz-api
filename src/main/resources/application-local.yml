@@ -34,4 +34,5 @@ extension:
   hash:
     salt: salt
   token:
+    subject: subject
     tokenKey: op5hhr4ysc7ymbxi7mixp604qp9fu651szr4n24wkc9x3ng26xccd1f1xz8ltokenkey

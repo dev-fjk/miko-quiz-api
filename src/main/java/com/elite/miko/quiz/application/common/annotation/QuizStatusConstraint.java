@@ -1,4 +1,4 @@
-package com.elite.miko.quiz.presentation.model.annotation;
+package com.elite.miko.quiz.application.common.annotation;
 
 import com.elite.miko.quiz.presentation.validator.QuizStatusValidator;
 import java.lang.annotation.Documented;

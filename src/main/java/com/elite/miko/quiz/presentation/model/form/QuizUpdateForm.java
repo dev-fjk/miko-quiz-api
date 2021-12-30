@@ -1,7 +1,7 @@
 package com.elite.miko.quiz.presentation.model.form;
 
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
-import com.elite.miko.quiz.presentation.model.annotation.QuizStatusConstraint;
+import com.elite.miko.quiz.application.common.annotation.QuizStatusConstraint;
 import com.elite.miko.quiz.presentation.model.form.base.AnswerBaseRequest;
 import com.elite.miko.quiz.presentation.model.form.base.QuizBaseRequest;
 import io.swagger.v3.oas.annotations.media.Schema;

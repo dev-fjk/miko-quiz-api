@@ -1,7 +1,7 @@
 package com.elite.miko.quiz.presentation.validator;
 
 import com.elite.miko.quiz.domain.model.consts.QuizStatus;
-import com.elite.miko.quiz.presentation.model.annotation.QuizStatusConstraint;
+import com.elite.miko.quiz.application.common.annotation.QuizStatusConstraint;
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

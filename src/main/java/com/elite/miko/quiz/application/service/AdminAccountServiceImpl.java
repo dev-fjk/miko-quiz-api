@@ -36,6 +36,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
         }
 
         // 認証に成功した場合はJson Web Token を生成
-        return webTokenUtil.generateToken(accountId);
+        // Bearer JWTToken値の形式で返却
+        return "Bearer " + webTokenUtil.generateToken();
     }
 }
