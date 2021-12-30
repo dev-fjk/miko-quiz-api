@@ -36,15 +36,17 @@ paths:
           type: integer
           format: int32
           default: 20
+      - name: x-quiz-authorization-header
+        $ref: '#/components/parameters/Authorization'
       responses:
+        "500":
+          $ref: '#/components/responses/internalServerError'
         "200":
           description: クイズ一覧(管理用)
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuizManageListResponse'
-        "500":
-          $ref: '#/components/responses/internalServerError'
         "400":
           $ref: '#/components/responses/badRequest'
         "401":
@@ -58,6 +60,9 @@ paths:
       - /miko/v1/admin/
       summary: クイズの更新を行う
       operationId: updateQuiz
+      parameters:
+      - name: x-quiz-authorization-header
+        $ref: '#/components/parameters/Authorization'
       requestBody:
         content:
           application/json:
@@ -82,6 +87,9 @@ paths:
       - /miko/v1/admin/
       summary: クイズの追加を行う
       operationId: addQuiz
+      parameters:
+      - name: x-quiz-authorization-header
+        $ref: '#/components/parameters/Authorization'
       requestBody:
         content:
           application/json:
@@ -114,6 +122,8 @@ paths:
         schema:
           type: array
           format: int64
+      - name: x-quiz-authorization-header
+        $ref: '#/components/parameters/Authorization'
       responses:
         "204":
           $ref: '#/components/responses/deletedSuccessfully'
@@ -140,14 +150,14 @@ paths:
               $ref: '#/components/schemas/LoginForm'
         required: true
       responses:
-        "200":
-          description: ログインに成功した
         "401":
           $ref: '#/components/responses/loginFailure'
         "500":
           $ref: '#/components/responses/internalServerError'
         "400":
           $ref: '#/components/responses/badRequest'
+        "200":
+          description: ログインに成功した
   /miko/v1/client/quizzes:
     get:
       tags:
@@ -163,14 +173,14 @@ paths:
           format: int32
           default: 10
       responses:
+        "500":
+          $ref: '#/components/responses/internalServerError'
         "200":
           description: クイズ一覧
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuizQuestionListResponse'
-        "500":
-          $ref: '#/components/responses/internalServerError'
         "400":
           $ref: '#/components/responses/badRequest'
         "404":
@@ -225,19 +235,21 @@ paths:
           type: integer
           format: int32
           default: 20
+      - name: x-quiz-authorization-header
+        $ref: '#/components/parameters/Authorization'
       responses:
-        "200":
-          description: リクエスト中のクイズ一覧
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/QuizManageListResponse'
         "500":
           $ref: '#/components/responses/internalServerError'
         "400":
           $ref: '#/components/responses/badRequest'
         "401":
           $ref: '#/components/responses/unauthorized'
+        "200":
+          description: リクエスト中のクイズ一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizManageListResponse'
         "403":
           $ref: '#/components/responses/forbidden'
         "404":
@@ -628,3 +640,10 @@ components:
       description: 正常に更新できた
     deletedSuccessfully:
       description: 正常に削除できた
+  parameters:
+    Authorization:
+      name: x-quiz-authorization-header
+      in: header
+      description: 認証ヘッダー
+      required: true
+      style: simple
