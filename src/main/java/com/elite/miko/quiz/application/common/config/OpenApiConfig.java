@@ -157,7 +157,6 @@ public class OpenApiConfig {
             return new Content().addMediaType(MediaType.APPLICATION_PROBLEM_JSON_VALUE,
                     new io.swagger.v3.oas.models.media.MediaType().schema(schema).example(example));
         } catch (Exception exception) {
-            exception.printStackTrace();
             throw new IllegalStateException("Swaggerのコンテンツ作成に失敗しました", exception);
         }
     }
