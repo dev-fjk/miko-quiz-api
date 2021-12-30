@@ -33,3 +33,5 @@ doma:
 extension:
   hash:
     salt: salt
+  token:
+    tokenKey: tokenKey

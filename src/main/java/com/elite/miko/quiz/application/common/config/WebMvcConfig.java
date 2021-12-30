@@ -1,6 +1,6 @@
 package com.elite.miko.quiz.application.common.config;
 
-import com.elite.miko.quiz.presentation.controller.QuizInterceptor;
+import com.elite.miko.quiz.presentation.controller.QuizAuthorizationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final QuizInterceptor quizInterceptor;
+    private final QuizAuthorizationInterceptor quizAuthorizationInterceptor;
 
     /**
      * Interceptorの追加を行う
@@ -20,6 +20,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
-        registry.addInterceptor(quizInterceptor).addPathPatterns("**/miko/quiz/admin/*");
+        registry.addInterceptor(quizAuthorizationInterceptor).addPathPatterns("**/miko/quiz/admin/*");
     }
 }
