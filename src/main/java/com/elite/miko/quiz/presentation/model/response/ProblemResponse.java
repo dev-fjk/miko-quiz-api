@@ -12,9 +12,6 @@ import lombok.Value;
 @Schema(description = "RFC7807準拠のエラー詳細")
 public class ProblemResponse {
 
-    @Schema(description = "問題のタイプを識別するURI[RFC3986]", example = "about:blank")
-    URI type = URI.create("about:blank");
-
     @Schema(description = "問題の要素", example = "リソースが見つかりません")
     String title;
 
