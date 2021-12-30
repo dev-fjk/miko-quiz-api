@@ -19,6 +19,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <groovy.version>3.0.8</groovy.version>
         <spock.version>2.0-groovy-3.0</spock.version>
         <swagger.version>3.0.0</swagger.version>
         <logback.version>1.2.9</logback.version>
@@ -201,6 +202,12 @@
 
         <!-- spock -->
         <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
             <version>${spock.version}</version>
@@ -211,12 +218,6 @@
             <artifactId>spock-spring</artifactId>
             <version>${spock.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>3.0.8</version>
-            <type>pom</type>
         </dependency>
     </dependencies>
 
