@@ -82,7 +82,7 @@ public class QuizAdminController {
     })
     public ResponseEntity<?> fetchQuiz(
             @RequestParam(name = "start", required = false, defaultValue = "1") @Min(1) int start,
-            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 0, max = 50) int count) {
+            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 1, max = 50) int count) {
         var quizManageResult = adminService.fetchQuiz(start - 1, count);
         return new ResponseEntity<>(responseConverter.convert(quizManageResult), HttpStatus.OK);
     }
@@ -116,7 +116,7 @@ public class QuizAdminController {
     })
     public ResponseEntity<?> fetchQuizRequest(
             @RequestParam(name = "start", required = false, defaultValue = "1") @Min(1) int start,
-            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 0, max = 50) int count) {
+            @RequestParam(name = "count", required = false, defaultValue = "20") @Range(min = 1, max = 50) int count) {
         var quizManageResult = adminService.fetchRequestQuiz(start - 1, count);
         return new ResponseEntity<>(responseConverter.convert(quizManageResult), HttpStatus.OK);
     }
