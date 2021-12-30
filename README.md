@@ -21,8 +21,7 @@
 ~~~
 
 ## 認証周りの設定
-管理者ユーザー用のAPIには Authorization Headerでの認証処理を入れている関係で普通に叩くと403エラーとなる<br>
-ローカルの開発時は以下の手順を行う
+管理者用APIを叩く際の認証設定の手順
 
 - 認証自体をOFFにする場合
     - spring.profile.activeに noauthを追加する
@@ -31,7 +30,7 @@
   ※ IntelliJの場合は実行構成の 有効なプロファイル欄に記載すればOK
 ~~~
 
-- 認証を行う場合(local)
+- 認証を行う場合
     - ① Swagger UIからサンプルの値そのままでログインAPIを叩く
     - ② レスポンスの x-quiz-authorization-header の値をコピーして 管理用APIの x-quiz-authorization-headerに設定する
 ~~~
