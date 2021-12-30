@@ -22,7 +22,6 @@ public class QuizQuestionListResponse {
     @Schema(description = "クイズ問題一覧", required = true)
     private List<QuizQuestion> quizList;
 
-
     @Data
     @Builder
     @NoArgsConstructor
