@@ -76,7 +76,7 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     /**
-     * クイズ一覧を取得し排他ロックを粉う
+     * クイズ一覧を取得し排他ロックを行う
      *
      * @param quizIdSet : クイズID一覧
      * @return クイズ取得結果
