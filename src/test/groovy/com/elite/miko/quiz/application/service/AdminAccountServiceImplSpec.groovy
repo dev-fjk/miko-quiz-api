@@ -7,7 +7,7 @@ import com.elite.miko.quiz.domain.repository.AdminAccountRepository
 import com.elite.miko.quiz.domain.service.AdminAccountService
 import spock.lang.Specification
 
-class AdminAccountServiceImplTest extends Specification {
+class AdminAccountServiceImplSpec extends Specification {
 
     AdminAccountService target
 
