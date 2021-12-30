@@ -3,11 +3,7 @@
 
 ## API仕様書(Swagger UI)
 - [git hub pages](https://dev-fjk.github.io/miko-quiz-api/)
-- [ローカル(ビルドが必要)](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/)
-~~~
-クイズAPIの仕様書が表示されない場合以下の文字列を検索欄に入力する
-/v3/api-docs
-~~~
+- [ローカル(ビルドが必要)](http://localhost:8080/swagger-ui/index.html)
 
 ### API仕様書の更新方法
 ~~~
@@ -86,9 +82,11 @@ curl -X 'GET' \
 |      |       |                |            | response   | Apiのレスポンスとして返却するmodelの定義
 
 ## 参考
+- [Spring Boot 認証・認可 REST API](https://b1san-blog.com/post/spring/spring-auth/)
 - [Doma リファレンス](http://doma.seasar.org/reference/index.html)
 - [Doma Framework](https://github.com/domaframework/doma-spring-boot)
 - [ControllerからSwaggerを自動生成](https://qiita.com/rhirabay/items/f7527c91b5defc424b9c)
+- [spring-doc-openapi メモ書き](https://ksby.hatenablog.com/entry/2021/03/25/072126)
+- [spring-doc issue #43](https://github.com/springdoc/springdoc-openapi/issues/43)
+- [swagger ui configuration](https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/)
 - [SwaggerUIを簡単にGithub Pagesで公開する方法](https://qiita.com/youdays/items/38f15b90402d097fb13e)
-- [Spring Boot 認証・認可 REST API](https://b1san-blog.com/post/spring/spring-auth/)
-- [springdoc-openapi メモ書き](https://ksby.hatenablog.com/entry/2021/03/25/072126)
