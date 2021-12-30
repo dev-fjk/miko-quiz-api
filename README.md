@@ -28,12 +28,13 @@
 |      | main  |                |            |            |
 |      |       | application    |            |            | アプリケーション層　業務ロジック関連
 |      |       |                | common     |            | 共通定義系パッケージ
+|      |       |                |            | annotation | 自作アノテーションを定義
 |      |       |                |            | config     | 共通的なDIのConfig定義
 |      |       |                |            | constant   | 定数定義用
 |      |       |                |            | utility    | 共通処理の定義用
 |      |       |                | exception  |            | 自作業務例外定義用パッケージ
 |      |       |                | service    |            | Serviceクラスの実装 メインのビジネスロジック実装箇所
-|      |       | domain         |            |            | ドメイン層 アプリ内部で使用するmodelとIFの定義
+|      |       | domain         |            |            | ドメイン層 AP層~ドメイン層で使用するmodelとIFの定義
 |      |       |                | model      |            |
 |      |       |                |            | consts     | Enum定義
 |      |       |                |            | dto        | アプリケーション内の中間加工用のmodel定義
@@ -50,7 +51,6 @@
 |      |       |                | validation |            | 入力チェック用処理の定義
 |      |       |                | converter  |            | IF周りの型変換を行うパッケージ
 |      |       |                | model      |            |
-|      |       |                |            | annotation | 自作バリデーション用のアノテーションを定義
 |      |       |                |            | form       | Requestのbodyからバインドされるformのmodelクラス定義
 |      |       |                |            | response   | Apiのレスポンスとして返却するmodelの定義
 
@@ -60,3 +60,4 @@
 - [ControllerからSwaggerを自動生成](https://qiita.com/rhirabay/items/f7527c91b5defc424b9c)
 - [SwaggerUIを簡単にGithub Pagesで公開する方法](https://qiita.com/youdays/items/38f15b90402d097fb13e)
 - [Spring Boot 認証・認可 REST API](https://b1san-blog.com/post/spring/spring-auth/)
+- [springdoc-openapi メモ書き](https://ksby.hatenablog.com/entry/2021/03/25/072126)
