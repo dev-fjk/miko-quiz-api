@@ -7,7 +7,7 @@ import com.elite.miko.quiz.domain.model.result.FetchQuizResult;
 import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
 import java.util.Set;
-import org.springframework.lang.NonNull;
+import lombok.NonNull;
 
 public interface QuizRepository {
 

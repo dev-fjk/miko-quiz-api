@@ -12,11 +12,11 @@ import com.elite.miko.quiz.infrastructure.model.entity.Quiz;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.seasar.doma.jdbc.SelectOptions;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Slf4j

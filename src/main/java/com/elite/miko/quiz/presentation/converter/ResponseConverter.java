@@ -4,8 +4,8 @@ import com.elite.miko.quiz.domain.model.result.QuizManageResult;
 import com.elite.miko.quiz.domain.model.result.QuizQuestionResult;
 import com.elite.miko.quiz.presentation.model.response.QuizManageListResponse;
 import com.elite.miko.quiz.presentation.model.response.QuizQuestionListResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component

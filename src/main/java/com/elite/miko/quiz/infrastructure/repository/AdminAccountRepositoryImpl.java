@@ -2,8 +2,8 @@ package com.elite.miko.quiz.infrastructure.repository;
 
 import com.elite.miko.quiz.domain.repository.AdminAccountRepository;
 import com.elite.miko.quiz.infrastructure.dao.AdminAccountDao;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Repository

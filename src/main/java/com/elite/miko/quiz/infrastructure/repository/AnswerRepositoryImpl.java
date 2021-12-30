@@ -6,9 +6,9 @@ import com.elite.miko.quiz.domain.repository.AnswerRepository;
 import com.elite.miko.quiz.infrastructure.dao.AnswerDao;
 import com.elite.miko.quiz.infrastructure.model.entity.Answer;
 import java.util.List;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Repository
