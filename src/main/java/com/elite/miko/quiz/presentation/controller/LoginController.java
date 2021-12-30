@@ -10,7 +10,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,8 +45,13 @@ public class LoginController {
             @ApiResponse(responseCode = "500", ref = OpenApiConstant.INTERNAL_SERVER_ERROR),
     })
     public ResponseEntity<?> isLogin(@Validated @RequestBody LoginForm loginForm) {
-        final String token = adminAccountService.login(loginForm.getAccountId(), loginForm.getPassword());
-        // TODO 認証処理盛り込み時にJWTでトークンを生成して返却するように処理を盛り込む
-        return new ResponseEntity<>(token, HttpStatus.OK);
+
+        final String jsonWebToken = adminAccountService.login(loginForm.getAccountId(), loginForm.getPassword());
+
+        // 生成したTokenをAuthorizationヘッダーに詰めて返却
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set(QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER, jsonWebToken);
+        responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        return ResponseEntity.ok().headers(responseHeaders).build();
     }
 }

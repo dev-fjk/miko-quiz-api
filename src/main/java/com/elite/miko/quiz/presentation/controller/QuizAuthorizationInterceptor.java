@@ -13,7 +13,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 @Slf4j
 @Component
-public class QuizInterceptor implements HandlerInterceptor {
+public class QuizAuthorizationInterceptor implements HandlerInterceptor {
+
+    public static final String X_QUIZ_AUTHORIZATION_HEADER = "X-quiz-authorization-header";
 
     /**
      * Controllerの事前処理を行う

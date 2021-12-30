@@ -1,18 +1,22 @@
 package com.elite.miko.quiz.application.service;
 
 import com.elite.miko.quiz.application.common.utility.HashUtil;
+import com.elite.miko.quiz.application.common.utility.WebTokenUtil;
 import com.elite.miko.quiz.application.exception.LoginFailureException;
 import com.elite.miko.quiz.domain.repository.AdminAccountRepository;
 import com.elite.miko.quiz.domain.service.AdminAccountService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminAccountServiceImpl implements AdminAccountService {
 
     private final AdminAccountRepository adminAccountRepository;
     private final HashUtil hashUtil;
+    private final WebTokenUtil webTokenUtil;
 
     /**
      * IDとパスワードの組み合わせに対する認証処理を行う
@@ -23,6 +27,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
      */
     @Override
     public String login(String accountId, String password) {
+
         // パスワードをsha256でハッシュ化する
         final String hashedPassword = hashUtil.createSha256Password(password);
         final boolean isLogin = adminAccountRepository.login(accountId, hashedPassword);
@@ -30,7 +35,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
             throw new LoginFailureException("ログインに失敗しました");
         }
 
-        // TODO 認証処理盛り込み時にJWTでトークンを生成して返却するように処理を盛り込む
-        return "token";
+        // 認証に成功した場合はJson Web Token を生成
+        return webTokenUtil.generateToken(accountId);
     }
 }

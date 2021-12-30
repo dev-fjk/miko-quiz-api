@@ -26,10 +26,13 @@ management:
         http:
           server.requests: 0.5, 0.95, 0.99
 
-# パスワードハッシュ化の際に使用する文字列
 extension:
   hash:
+    # パスワードハッシュ化の際に使用する文字列
     salt: ${salt}
+  token:
+    # JsonWebTokenのキーに使用する値
+    tokenKey: ${tokenKey}
 
 ---
 # -Dspring.profiles.activeを指定しなかった場合に実行される application.ymlの指定

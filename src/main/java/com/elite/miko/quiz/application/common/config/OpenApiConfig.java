@@ -1,6 +1,7 @@
 package com.elite.miko.quiz.application.common.config;
 
 import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
+import com.elite.miko.quiz.presentation.controller.QuizAuthorizationInterceptor;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.converter.ModelConverters;
@@ -9,7 +10,6 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
-import java.math.BigDecimal;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +32,24 @@ public class OpenApiConfig {
     public OpenApiCustomiser openApiCustomiser(ObjectMapper objectMapper) {
         return openApi -> {
             addSchemas(openApi.getComponents());
+            addParameters(openApi.getComponents());
             addResponses(openApi.getComponents(), objectMapper);
         };
+    }
+
+    /**
+     * パラメータ定義を追加する
+     *
+     * @param components : コンポーネント
+     */
+    private void addParameters(Components components) {
+        components.addParameters(OpenApiConstant.AUTHORIZATION_HEADER, new Parameter()
+                .name(QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER)
+                .description("認証ヘッダー")
+                .in("header")
+                .style(Parameter.StyleEnum.SIMPLE)
+                .required(true)
+        );
     }
 
     /**

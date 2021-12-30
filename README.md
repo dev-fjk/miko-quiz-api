@@ -59,3 +59,4 @@
 - [Doma Framework](https://github.com/domaframework/doma-spring-boot)
 - [ControllerからSwaggerを自動生成](https://qiita.com/rhirabay/items/f7527c91b5defc424b9c)
 - [SwaggerUIを簡単にGithub Pagesで公開する方法](https://qiita.com/youdays/items/38f15b90402d097fb13e)
+- [Spring Boot 認証・認可 REST API](https://b1san-blog.com/post/spring/spring-auth/)

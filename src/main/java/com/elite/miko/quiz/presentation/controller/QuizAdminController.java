@@ -63,6 +63,10 @@ public class QuizAdminController {
     @GetMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "クイズの一覧を取得する(管理用)")
+    @Parameters({
+            @Parameter(name = QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER,
+                    ref = OpenApiConstant.AUTHORIZATION_HEADER)
+    })
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -93,6 +97,10 @@ public class QuizAdminController {
     @GetMapping(path = "/quizzes/requests")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "リクエスト中のクイズ一覧を取得する")
+    @Parameters({
+            @Parameter(name = QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER,
+                    ref = OpenApiConstant.AUTHORIZATION_HEADER)
+    })
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -122,6 +130,10 @@ public class QuizAdminController {
     @PostMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "クイズの追加を行う")
+    @Parameters({
+            @Parameter(name = QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER,
+                    ref = OpenApiConstant.AUTHORIZATION_HEADER)
+    })
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(schema = @Schema(implementation = QuizAddForm.class))
     )
@@ -147,6 +159,10 @@ public class QuizAdminController {
     @PutMapping(path = "/quizzes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "クイズの更新を行う")
+    @Parameters({
+            @Parameter(name = QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER,
+                    ref = OpenApiConstant.AUTHORIZATION_HEADER)
+    })
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(schema = @Schema(implementation = QuizUpdateForm.class))
     )
@@ -177,7 +193,9 @@ public class QuizAdminController {
             @Parameter(name = "quizIdList", in = ParameterIn.QUERY,
                     description = "削除対象のクイズIDリストカンマ区切りで設定する 最大50件",
                     schema = @Schema(type = "array", format = "int64")
-            )
+            ),
+            @Parameter(name = QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER,
+                    ref = OpenApiConstant.AUTHORIZATION_HEADER)
     })
     @ApiResponses({
             @ApiResponse(responseCode = "204", ref = OpenApiConstant.DELETED_SUCCESS),
