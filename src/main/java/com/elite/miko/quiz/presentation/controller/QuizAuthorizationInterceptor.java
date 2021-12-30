@@ -20,7 +20,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class QuizAuthorizationInterceptor implements HandlerInterceptor {
 
-    public static final String X_QUIZ_AUTHORIZATION_HEADER = "X-quiz-authorization-header";
+    public static final String X_QUIZ_AUTHORIZATION_HEADER = "x-quiz-authorization-header";
 
     private final TokenConfig tokenConfig;
     private final WebTokenUtil webTokenUtil;

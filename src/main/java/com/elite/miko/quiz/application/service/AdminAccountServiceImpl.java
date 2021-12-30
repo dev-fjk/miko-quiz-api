@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AdminAccountServiceImpl implements AdminAccountService {
 
+    private static final String HEADER_BEARER = "Bearer";
+
     private final AdminAccountRepository adminAccountRepository;
     private final HashUtil hashUtil;
     private final WebTokenUtil webTokenUtil;
@@ -37,6 +39,6 @@ public class AdminAccountServiceImpl implements AdminAccountService {
 
         // 認証に成功した場合はJson Web Token を生成
         // Bearer JWTToken値の形式で返却
-        return "Bearer " + webTokenUtil.generateToken();
+        return HEADER_BEARER + " " + webTokenUtil.generateToken();
     }
 }

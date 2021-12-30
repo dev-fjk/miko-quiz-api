@@ -55,11 +55,7 @@ public class WebTokenUtil {
      * @return JWTの生成に使用したSubjectの値
      */
     public String analysisFromToken(final String token) {
-
         final String tokenKey = tokenConfig.getTokenKey();
-        if (Objects.isNull(tokenKey)) {
-            throw new IllegalStateException("Tokenのキー値が読み取れません");
-        }
         return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(tokenKey.getBytes(StandardCharsets.UTF_8)))
                 .build()

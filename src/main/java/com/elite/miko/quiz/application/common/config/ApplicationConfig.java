@@ -49,7 +49,6 @@ public class ApplicationConfig {
      */
     @Bean
     public ObjectMapper objectMapper() {
-
         ObjectMapper objectMapper = new ObjectMapper();
         // 大文字小文字は区別しない
         objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
@@ -57,7 +56,7 @@ public class ApplicationConfig {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // 空のmodelパース時にエラーにしない
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        // フィールドのみをデシリアライズ対象にすうｒ
+        // フィールドのみをデシリアライズ対象にする
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         return objectMapper;
