@@ -2,7 +2,6 @@ package com.elite.miko.quiz.presentation.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.net.URI;
 import lombok.Builder;
 import lombok.Value;
 
