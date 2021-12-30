@@ -97,4 +97,34 @@ class AnswerRepositoryImplSpec extends Specification {
         "2件更新"   | 2           || false
     }
 
+    def "異常系_updateAnswer_引数がnull"() {
+        when:
+        target.updateAnswer(10L, null)
+
+        then:
+        thrown(NullPointerException)
+        0 * modelMapper.map(*_)
+        0 * answerDao.update(*_)
+    }
+
+    def "正常系_deleteByQuizIdList"() {
+        given:
+        def quizIdList = (1L..3L).collect() {
+            return it
+        }
+        when:
+        target.deleteByQuizIdList(quizIdList)
+        then:
+        noExceptionThrown()
+        1 * answerDao.deleteByQuizIdList(quizIdList)
+    }
+
+    def "異常系_deleteByQuizIdList_引数がnull"() {
+        when:
+        target.deleteByQuizIdList(null)
+
+        then:
+        thrown(NullPointerException)
+        0 * answerDao.deleteByQuizIdList(*_)
+    }
 }

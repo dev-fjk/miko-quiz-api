@@ -286,6 +286,10 @@
                     <!-- カバレッジ除外対象の設定 -->
                     <excludes>
                         <exclude>**/Application.java</exclude>
+                        <exclude>**/config/**</exclude>
+                        <exclude>**/constant/**</exclude>
+                        <exclude>**/exception/**</exclude>
+                        <exclude>**/entity/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
