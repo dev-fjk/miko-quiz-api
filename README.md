@@ -4,6 +4,10 @@
 ## API仕様書(Swagger UI)
 - [git hub pages](https://dev-fjk.github.io/miko-quiz-api/)
 - [ローカル(ビルドが必要)](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/)
+~~~
+クイズAPIの仕様書が表示されない場合以下の文字列を検索欄に入力する
+/v3/api-docs
+~~~
 
 ### API仕様書の更新方法
 ~~~
