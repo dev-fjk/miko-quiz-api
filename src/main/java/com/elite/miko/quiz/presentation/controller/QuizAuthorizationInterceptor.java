@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -36,8 +35,8 @@ public class QuizAuthorizationInterceptor implements HandlerInterceptor {
      * @throws AccessDeniedException 認証失敗時にThrow
      */
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
-                             @NonNull Object handler) throws AccessDeniedException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws AccessDeniedException {
 
         // 管理者用ページ以外へのアクセスの場合は認証を無効にする
         if (!request.getRequestURI().contains("admin")) {
