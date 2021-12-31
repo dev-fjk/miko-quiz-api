@@ -10,4 +10,4 @@ where
     status = /* quizStatus */'request'
 /*%end*/
 order by
-    quiz_id -- limitとoffset指定のため
+    quiz_id
