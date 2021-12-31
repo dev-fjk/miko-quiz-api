@@ -110,7 +110,7 @@ public class QuizExceptionHandler {
      * @return エラーレスポンス
      */
     @ExceptionHandler(RepositoryControlException.class)
-    public ResponseEntity<ProblemResponse> handleRuntimeException(RepositoryControlException exception) {
+    public ResponseEntity<ProblemResponse> handleRepositoryControlException(RepositoryControlException exception) {
         return this.errorResponses(HttpStatus.INTERNAL_SERVER_ERROR, problemConverter.convert(exception));
     }
 
@@ -134,7 +134,7 @@ public class QuizExceptionHandler {
      */
     private ResponseEntity<ProblemResponse> errorResponses(HttpStatus status, ProblemResponse body) {
         return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
                 .body(body);
     }
 }
