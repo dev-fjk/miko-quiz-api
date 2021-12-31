@@ -51,7 +51,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input     || expected
         "null"   | null      || "必須パラメータです"
         "空文字"    | ""        || "必須パラメータです"
-        "201文字"  | "q" * 201 || "0 から 200 の間のサイズにしてください"
+        "201文字"  | "q" * 201 || "最大200文字で設定してください"
     }
 
     def "正常系_commentaryが200文字"() {
@@ -81,7 +81,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input     || expected
         "null"   | null      || "必須パラメータです"
         "空文字"    | ""        || "必須パラメータです"
-        "51文字"   | "c" * 201 || "0 から 200 の間のサイズにしてください"
+        "51文字"   | "c" * 201 || "最大200文字で設定してください"
     }
 
     def "正常系_answer1が50文字"() {
@@ -111,7 +111,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input    || expected
         "null"   | null     || "必須パラメータです"
         "空文字"    | ""       || "必須パラメータです"
-        "51文字"   | "c" * 51 || "0 から 50 の間のサイズにしてください"
+        "51文字"   | "c" * 51 || "最大50文字で設定してください"
     }
 
     def "正常系_answer2が50文字"() {
@@ -141,7 +141,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input    || expected
         "null"   | null     || "必須パラメータです"
         "空文字"    | ""       || "必須パラメータです"
-        "51文字"   | "c" * 51 || "0 から 50 の間のサイズにしてください"
+        "51文字"   | "c" * 51 || "最大50文字で設定してください"
     }
 
     def "正常系_answer3が50文字"() {
@@ -170,7 +170,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input    || expected
         "null"   | null     || "必須パラメータです"
         "空文字"    | ""       || "必須パラメータです"
-        "51文字"   | "c" * 51 || "0 から 50 の間のサイズにしてください"
+        "51文字"   | "c" * 51 || "最大50文字で設定してください"
     }
 
     def "正常系_answer4が50文字"() {
@@ -200,7 +200,7 @@ class QuizAddFormSpec extends UnitTestBase {
         testName | input    || expected
         "null"   | null     || "必須パラメータです"
         "空文字"    | ""       || "必須パラメータです"
-        "201文字"  | "c" * 51 || "0 から 50 の間のサイズにしてください"
+        "201文字"  | "c" * 51 || "最大50文字で設定してください"
     }
 
     @Unroll

@@ -44,7 +44,7 @@ class LoginFormSpec extends Specification {
         testName | input    || expected
         "null"   | null     || "必須パラメータです"
         "空文字"    | ""       || "必須パラメータです"
-        "13文字"   | "c" * 13 || "0 から 12 の間のサイズにしてください"
+        "13文字"   | "c" * 13 || "最大12文字で設定してください"
     }
 
     @Unroll

@@ -15,22 +15,22 @@ import lombok.ToString;
 public class AnswerBaseRequest {
 
     @NotBlank(message = "必須パラメータです")
-    @Size(max = 50)
+    @Size(max = 50, message = "最大50文字で設定してください")
     @Schema(description = "回答1", example = "にゃっはろー", required = true)
     private String answer1;
 
     @NotBlank(message = "必須パラメータです")
-    @Size(max = 50)
+    @Size(max = 50, message = "最大50文字で設定してください")
     @Schema(description = "回答2", example = "こんこんきーつね", required = true)
     private String answer2;
 
     @NotBlank(message = "必須パラメータです")
-    @Size(max = 50)
+    @Size(max = 50, message = "最大50文字で設定してください")
     @Schema(description = "回答3", example = "こんやっぴー", required = true)
     private String answer3;
 
     @NotBlank(message = "必須パラメータです")
-    @Size(max = 50)
+    @Size(max = 50, message = "最大50文字で設定してください")
     @Schema(description = "回答4", example = "ゆびゆびー", required = true)
     private String answer4;
 

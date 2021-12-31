@@ -15,7 +15,7 @@ import lombok.ToString;
 public class LoginForm {
 
     @NotBlank(message = "必須パラメータです")
-    @Size(max = 12)
+    @Size(max = 12, message = "最大12文字で設定してください")
     @Schema(description = "アカウントID", example = "root", required = true)
     private String accountId;
 
