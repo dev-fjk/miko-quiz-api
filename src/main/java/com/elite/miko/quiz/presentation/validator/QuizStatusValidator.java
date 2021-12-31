@@ -17,6 +17,6 @@ public class QuizStatusValidator implements ConstraintValidator<QuizStatusConstr
      */
     @Override
     public boolean isValid(QuizStatus value, ConstraintValidatorContext context) {
-        return Objects.isNull(value) || QuizStatus.INVALID != value;
+        return Objects.nonNull(value) && QuizStatus.INVALID != value;
     }
 }

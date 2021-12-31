@@ -30,11 +30,11 @@ public class QuizValidator {
         }
 
         final List<String> validationErrors = new ArrayList<>();
-        if (updateForm.getQuizList().size() >= 50) {
+        if (updateForm.getQuizList().size() > 50) {
             validationErrors.add("クイズIDは最大50件です");
         }
         if (updateForm.getQuizList().contains(null)) {
-            validationErrors.add("ID一覧にnullが含まれています");
+            validationErrors.add("クイズ一覧にnullが含まれています");
         }
         if (CollectionUtils.isNotEmpty(validationErrors)) {
             throw new ValidationException(validationErrors);
@@ -55,7 +55,7 @@ public class QuizValidator {
         }
 
         final List<String> validationErrors = new ArrayList<>();
-        if (quizIdList.size() >= 50) {
+        if (quizIdList.size() > 50) {
             validationErrors.add("クイズIDは最大50件です");
         }
         if (quizIdList.contains(null)) {
