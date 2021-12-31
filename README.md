@@ -1,5 +1,5 @@
 # miko-quiz-api
-さくらみこ クイズアプリ用API
+さくらみこ クイズアプリ用API    ![Coverage](.github/badges/jacoco.svg)  
 
 ## API仕様書(Swagger UI)
 - [git hub pages](https://dev-fjk.github.io/miko-quiz-api/)
