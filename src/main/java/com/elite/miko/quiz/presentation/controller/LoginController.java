@@ -48,9 +48,9 @@ public class LoginController {
 
         final String jsonWebToken = adminAccountService.login(loginForm.getAccountId(), loginForm.getPassword());
 
-        // 生成したTokenを独自定義したAuthorizationヘッダーに詰めて返却
+        // 生成したTokenをAuthorizationヘッダーに設定して返却
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set(QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER, jsonWebToken);
+        responseHeaders.set(QuizAuthorizationInterceptor.AUTHORIZATION_HEADER, jsonWebToken);
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         return ResponseEntity.ok().headers(responseHeaders).build();
     }

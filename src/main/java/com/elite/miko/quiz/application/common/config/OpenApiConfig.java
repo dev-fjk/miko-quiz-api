@@ -1,15 +1,15 @@
 package com.elite.miko.quiz.application.common.config;
 
 import com.elite.miko.quiz.application.common.constant.OpenApiConstant;
-import com.elite.miko.quiz.presentation.controller.QuizAuthorizationInterceptor;
 import com.elite.miko.quiz.presentation.model.response.ProblemResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,24 +32,10 @@ public class OpenApiConfig {
     public OpenApiCustomiser openApiCustomiser(ObjectMapper objectMapper) {
         return openApi -> {
             addSchemas(openApi.getComponents());
-            addParameters(openApi.getComponents());
+            addSecuritySchemas(openApi.getComponents());
+            openApi.addSecurityItem(new SecurityRequirement().addList(OpenApiConstant.AUTHORIZATION_HEADER_KEY));
             addResponses(openApi.getComponents(), objectMapper);
         };
-    }
-
-    /**
-     * パラメータ定義を追加する
-     *
-     * @param components : コンポーネント
-     */
-    private void addParameters(Components components) {
-        components.addParameters(OpenApiConstant.AUTHORIZATION_HEADER, new Parameter()
-                .name(QuizAuthorizationInterceptor.X_QUIZ_AUTHORIZATION_HEADER)
-                .description("認証ヘッダー")
-                .in("header")
-                .style(Parameter.StyleEnum.SIMPLE)
-                .required(true)
-        );
     }
 
     /**
@@ -60,6 +46,22 @@ public class OpenApiConfig {
     private void addSchemas(Components components) {
         var schemas = ModelConverters.getInstance().read(ProblemResponse.class);
         schemas.forEach(components::addSchemas);
+    }
+
+    /**
+     * Security Schemaの追加
+     *
+     * @param components components : コンポーネント
+     */
+    private void addSecuritySchemas(Components components) {
+        components.addSecuritySchemes(OpenApiConstant.AUTHORIZATION_HEADER_KEY,
+                new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .in(SecurityScheme.In.HEADER)
+                        .scheme("bearer")
+                        .description("JWT Bearer認証ヘッダー")
+                        .bearerFormat("JWT")
+        );
     }
 
     /**

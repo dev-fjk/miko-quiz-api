@@ -26,26 +26,11 @@
   ※ IntelliJの場合は実行構成の 有効なプロファイル欄に記載すればOK
 ~~~
 
-- 認証を行う場合
-    - ① Swagger UIからサンプルの値そのままでログインAPIを叩く
-    - ② レスポンスの x-quiz-authorization-header の値をコピーして 管理用APIの x-quiz-authorization-headerに設定する
-~~~
-①ログインAPI向けのリクエスト
-curl -X 'POST' \
-  'http://localhost:8080/miko/v1/login/' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "accountId": "root",
-  "password": "password"
-}'
-
-②管理者API向けのリクエスト例 ※x-quiz-authorization-headerにはログインAPIのレスポンスに設定された値を設定
-curl -X 'GET' \
-'http://localhost:8080/miko/v1/admin/quizzes?start=1&count=20' \
--H 'accept: application/json' \
--H 'x-quiz-authorization-header: ※ここにログインAPIのレスポンスに設定されたToken値を設定
-~~~
+- 認証を行う場合([参考ページ](https://qiita.com/yushi_koga/items/6b6b4aa6fa57f771da6f))
+    - ① Swagger UIからサンプルの値そのままでログインAPIを叩く(Localプロファイルのみ)
+    - ② レスポンスの Authorizationヘッダのの値から　Bearer を除いたトークン文字列をコピーする
+    - ③ Swagger UIのAuthorizeボタンを押下し コピーしたトークン値を貼り付けてAuthorizeボタンを押下
+    - ④ 実行したいAPIを実行
 
 ## パッケージ構成
 | dir1 | dir2  | dir3           | dir4       | dir5       | description
@@ -90,3 +75,4 @@ curl -X 'GET' \
 - [spring-doc issue #43](https://github.com/springdoc/springdoc-openapi/issues/43)
 - [swagger ui configuration](https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/)
 - [SwaggerUIを簡単にGithub Pagesで公開する方法](https://qiita.com/youdays/items/38f15b90402d097fb13e)
+- [Openapiで全APIに認証の設定（security scheme）を指定する方法](https://qiita.com/yushi_koga/items/6b6b4aa6fa57f771da6f)
