@@ -71,6 +71,10 @@ public enum QuizStatus {
             throw new IllegalArgumentException("quizStatusが設定されていません");
         }
 
+        if (value.equals("invalid")) {
+            throw new IllegalArgumentException("quizStatusが異常な値です");
+        }
+
         return Stream.of(values())
                 .filter(v -> value.equals(v.getValue()))
                 .findFirst()

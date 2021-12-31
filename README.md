@@ -1,5 +1,5 @@
 # miko-quiz-api
-みこちのクイズアプリ用Rest Api
+さくらみこ クイズアプリ用API
 
 ## API仕様書(Swagger UI)
 - [git hub pages](https://dev-fjk.github.io/miko-quiz-api/)

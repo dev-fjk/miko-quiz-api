@@ -1,5 +1,6 @@
 package com.elite.miko.quiz.presentation.model.form.base;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.stream.IntStream;
 import javax.validation.constraints.AssertTrue;
@@ -37,6 +38,7 @@ public class AnswerBaseRequest {
     @Schema(description = "正答番号 1から4のいずれかの数字を設定", example = "1", required = true)
     private Integer correctNumber;
 
+    @Hidden
     @AssertTrue(message = "1,2,3,4 のいずれかを指定してください")
     public boolean isCorrectNumber() {
         return IntStream.of(1, 2, 3, 4).anyMatch(this.correctNumber::equals);

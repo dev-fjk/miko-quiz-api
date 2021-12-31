@@ -1,6 +1,8 @@
 package com.elite.miko.quiz.application.service
 
 import com.elite.miko.quiz.application.exception.QuizNotEnoughCountException
+import com.elite.miko.quiz.application.exception.RepositoryControlException
+import com.elite.miko.quiz.domain.model.dto.QuizAddDto
 import com.elite.miko.quiz.domain.model.result.FetchQuizResult
 import com.elite.miko.quiz.domain.repository.AnswerRepository
 import com.elite.miko.quiz.domain.repository.QuizRepository
@@ -66,5 +68,44 @@ class QuizClientServiceImplSpec extends Specification {
         def exception = thrown(QuizNotEnoughCountException)
         exception.getMessage() == "指定された件数分のクイズが見つかりません"
         0 * answerRepository.fetchByQuizIdList(_)
+    }
+
+    def "正常系_quizRequest_登録に成功"() {
+        given:
+        def quizAddDto = new QuizAddDto()
+        def answerAddDto = new QuizAddDto.AnswerAddDto()
+        quizAddDto.setAnswer(answerAddDto)
+
+        def insertedQuiz = new Quiz()
+        insertedQuiz.setQuizId(10L)
+
+        1 * quizRepository.insertQuiz(quizAddDto) >> insertedQuiz
+        1 * answerRepository.insertAnswer(10L, answerAddDto) >> true
+
+        when:
+        target.quizRequest(quizAddDto)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "異常系_quizRequest_登録に失敗"() {
+        given:
+        def quizAddDto = new QuizAddDto()
+        def answerAddDto = new QuizAddDto.AnswerAddDto()
+        quizAddDto.setAnswer(answerAddDto)
+
+        def insertedQuiz = new Quiz()
+        insertedQuiz.setQuizId(10L)
+
+        1 * quizRepository.insertQuiz(quizAddDto) >> insertedQuiz
+        1 * answerRepository.insertAnswer(10L, answerAddDto) >> false
+
+        when:
+        target.quizRequest(quizAddDto)
+
+        then:
+        def exception = thrown(RepositoryControlException)
+        exception.getMessage() == "回答の登録に失敗しました"
     }
 }

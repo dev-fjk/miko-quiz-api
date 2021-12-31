@@ -15,17 +15,6 @@ doma:
   dialect: postgres
   naming: snake_lower_case
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: info,health,metrics,prometheus
-  metrics:
-    distribution:
-      percentiles:
-        http:
-          server.requests: 0.5, 0.95, 0.99
-
 extension:
   hash:
     # パスワードハッシュ化の際に使用する文字列
