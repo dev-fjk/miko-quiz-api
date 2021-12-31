@@ -1,8 +1,8 @@
 package com.elite.miko.quiz
 
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import org.objectweb.asm.TypeReference
 import spock.lang.Specification
 
 import java.time.Clock
