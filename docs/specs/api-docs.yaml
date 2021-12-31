@@ -7,7 +7,7 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 security:
-- JwtTokenAuthHeader: []
+- JwtAuthHeader: []
 tags:
 - name: /miko/v1/login/
   description: 管理用ページ向けの認証を行うAPI
@@ -167,16 +167,16 @@ paths:
       responses:
         "500":
           $ref: '#/components/responses/internalServerError'
-        "400":
-          $ref: '#/components/responses/badRequest'
-        "404":
-          $ref: '#/components/responses/quizNotFound'
         "200":
           description: クイズ一覧
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuizQuestionListResponse'
+        "400":
+          $ref: '#/components/responses/badRequest'
+        "404":
+          $ref: '#/components/responses/quizNotFound'
         "401":
           $ref: '#/components/responses/unauthorized'
         "403":
@@ -626,7 +626,7 @@ components:
     deletedSuccessfully:
       description: 正常に削除できた
   securitySchemes:
-    JwtTokenAuthHeader:
+    JwtAuthHeader:
       type: http
       description: JWT Bearer認証ヘッダー
       in: header
