@@ -5,7 +5,7 @@ package com.elite.miko.quiz.application.common.constant;
  */
 public class OpenApiConstant {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_HEADER_KEY = "JwtTokenAuthHeader";
 
     public static final String BAD_REQUEST = "badRequest";
     public static final String UNAUTHORIZED = "unauthorized";

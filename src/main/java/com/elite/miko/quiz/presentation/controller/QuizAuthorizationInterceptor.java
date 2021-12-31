@@ -20,7 +20,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class QuizAuthorizationInterceptor implements HandlerInterceptor {
 
-    public static final String X_QUIZ_AUTHORIZATION_HEADER = "x-quiz-authorization-header";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final TokenConfig tokenConfig;
     private final WebTokenUtil webTokenUtil;
@@ -58,7 +58,7 @@ public class QuizAuthorizationInterceptor implements HandlerInterceptor {
      */
     private boolean authorize(HttpServletRequest request) {
 
-        final String authorization = request.getHeader(X_QUIZ_AUTHORIZATION_HEADER);
+        final String authorization = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.isEmpty(authorization)) {
             return false;
         }
@@ -68,14 +68,11 @@ public class QuizAuthorizationInterceptor implements HandlerInterceptor {
         }
 
         try {
-            // Bearer の部分の文字列を除いたTokenの部分だけを切りだしトークンを解析する
+            // Bearer の部分の文字列を除きトークン値だけを取得してJWTの解析を行う
+            // 解析の結果 Token生成時に設定した固定値のsubjectが返却されるかをチェックする
             final String token = authorization.substring(7);
             final String subject = webTokenUtil.analysisFromToken(token);
-
-            // JWT作成時に使用したsubjectの値と一致するかチェック
-            // 1アカウントしか使用しない関係で環境別に用意した環境変数のsubjectと一致するかをチェックする
             return subject.equals(tokenConfig.getSubject());
-
         } catch (RuntimeException runtimeException) {
             // JWT側でのエラー発生時は認証失敗とするためfalseを返却
             log.error("token解析時に失敗しました : {}", runtimeException.getMessage());
