@@ -3,6 +3,7 @@ package com.elite.miko.quiz.presentation.controller;
 import com.elite.miko.quiz.application.common.config.TokenConfig;
 import com.elite.miko.quiz.application.common.utility.WebTokenUtil;
 import java.nio.file.AccessDeniedException;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -70,10 +71,8 @@ public class QuizAuthorizationInterceptor implements HandlerInterceptor {
             // Bearer の部分の文字列を除きトークン値だけを取得してJWTの解析を行う
             // 解析の結果 Token生成時に設定した固定値のsubjectが返却されるかをチェックする
             final String token = authorization.substring(7);
-            final String subject = webTokenUtil.analysisFromToken(token);
-            return subject.equals(tokenConfig.getSubject());
+            return Objects.equals(webTokenUtil.analysisFromToken(token), tokenConfig.getSubject());
         } catch (RuntimeException runtimeException) {
-            // JWT側でのエラー発生時は認証失敗とするためfalseを返却
             log.error("token解析時に失敗しました : {}", runtimeException.getMessage());
             return false;
         }
